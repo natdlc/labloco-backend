@@ -2,7 +2,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+
+// routes dependencies
 const userRoutes = require("./routes/users");
+const productRoutes = require("./routes/products");
 
 // env
 const port = process.env.PORT;
@@ -22,6 +25,7 @@ db.once(
 
 // routes
 app.use("/users", userRoutes);
+app.use("/products", productRoutes);
 
 // gateway res
 app.get(
