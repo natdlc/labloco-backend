@@ -1,9 +1,6 @@
 const Product = require("../models/Product");
 
-
-
-
-// Create
+// Create new product
 module.exports.createProduct = (productInfo) => {
 
     let { name, description, price } = productInfo;
@@ -14,5 +11,29 @@ module.exports.createProduct = (productInfo) => {
 
     return newProduct.save()
         .then(product => product)
+        .catch(err => err.message);
+};
+
+// Retrieve active products
+module.exports.getActiveProducts = () => {
+    return Product.find({})
+        .then(products => products)
+        .catch(err => err.message)
+};
+
+// Retrieve specific product
+module.exports.getProduct = (productId) => {
+    return Product.findById(productId)
+        .then(product => product)
+        .catch(err => err.message);
+};
+
+// Update product
+module.exports.updateProduct = (productId, newData) => {
+    return Product
+        .findByIdAndUpdate(productId, newData)
+        .then(() => {
+            return {message: "Update success"}
+        })
         .catch(err => err.message);
 };

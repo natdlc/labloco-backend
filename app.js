@@ -39,3 +39,15 @@ app.listen(
     port,
     () => console.log(`--> API active on port: ${port}`)
 )
+
+/* Minimum requirements (ZUITT)
+● (complete) User registration 
+● (complete) User authentication
+● (complete) Create Product (Admin only)
+● (complete) Retrieve all active products
+● (complete) Retrieve single product
+● (complete) Update Product information (Admin only)
+● Archive Product (Admin only)
+● Non-admin User checkout (Create Order)
+
+*/
