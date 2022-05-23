@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 const secret = "lablocoAPI";
 
-
 module.exports.createAccessToken = (user) => {
   const data = {
     id: user._id,
@@ -30,6 +29,17 @@ module.exports.verify = (req, res, next) => {
         req.user = decodedToken;
         next();
       };
+    });
+  };
+};
+
+module.exports.verifyAdmin = (req, res, next) => {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    return res.send({
+      auth: "failed",
+      message: "access denied"
     });
   };
 };
