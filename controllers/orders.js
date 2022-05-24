@@ -1,11 +1,16 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 
-const getTotal = async (total, cart) => {
+const calculate = async (total, cart) => {
 	for (let i = 0; i < cart.length; i++) {
 		await Product.findById(cart[i].productId)
 			.then((product) => {
-				total += product.price * cart[i].quantity;
+				if (product.isActive) {
+					total += product.price * cart[i].quantity;
+				} else {
+					total = null;
+					return total;
+				}
 			})
 			.catch((err) => err.message);
 	}
@@ -22,21 +27,27 @@ module.exports.checkout = async (req, res) => {
 			// for multiple products
 			let total = 0;
 
-			let newOrderDetails = {
-				userId: req.user.id,
-				totalAmount: await getTotal(total, cart),
-			};
+			let getTotalAmount = await calculate(total, cart);
 
-			let newOrder = new Order(newOrderDetails);
+			if (getTotalAmount) {
+				let newOrderDetails = {
+					userId: req.user.id,
+					totalAmount: getTotalAmount,
+				};
 
-			cart.forEach((product) => {
-				newOrder.products.push(product);
-			});
+				let newOrder = new Order(newOrderDetails);
 
-			return newOrder
-				.save()
-				.then((result) => res.send(result))
-				.catch((err) => res.send(err.message));
+				cart.forEach((product) => newOrder.products.push(product));
+
+				return newOrder
+					.save()
+					.then((result) => res.send(result))
+					.catch((err) => res.send(err.message));
+			} else {
+				return Promise.reject({ message: "Can't process order" })
+					.then((result) => res.send(result))
+					.catch((err) => res.send(err.message));
+			}
 		} else {
 			// for one product
 			return Product.findById(cart.productId)

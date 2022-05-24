@@ -69,7 +69,6 @@ module.exports.addToCart = async (userId, productInfo) => {
 		})
 		.catch((err) => err.message);
 };
-
 // *EXTRA* Retrieve authenticated user profile
 module.exports.getProfile = (userId) => {
 	return User.findById(userId)

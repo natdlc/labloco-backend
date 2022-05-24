@@ -6,7 +6,7 @@ require("dotenv").config();
 // routes dependencies
 const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
-const orderRoutes = require("./routes/orders")
+const orderRoutes = require("./routes/orders");
 
 // env
 const port = process.env.PORT;
@@ -19,10 +19,7 @@ app.use(express.json());
 // db connection
 mongoose.connect(acct);
 let db = mongoose.connection;
-db.once(
-    "open",
-    () => console.log(`--> Connected to MongoDB`)
-);
+db.once("open", () => console.log(`--> Connected to MongoDB`));
 
 // routes
 app.use("/users", userRoutes);
@@ -30,15 +27,9 @@ app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 
 // gateway res
-app.get(
-    "/",
-    (req, res) => res.send("Welcome to LabLoco")
-);
+app.get("/", (req, res) => res.send("Welcome to LabLoco"));
 
-app.listen(
-    port,
-    () => console.log(`--> API active on port: ${port}`)
-)
+app.listen(port, () => console.log(`--> API active on port: ${port}`));
 
 /* Minimum requirements (ZUITT)
 
