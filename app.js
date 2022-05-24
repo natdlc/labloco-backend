@@ -41,13 +41,18 @@ app.listen(
 )
 
 /* Minimum requirements (ZUITT)
+
 ● (complete) User registration 
 ● (complete) User authentication
 ● (complete) Create Product (Admin only)
 ● (complete) Retrieve all active products
 ● (complete) Retrieve single product
 ● (complete) Update Product information (Admin only)
-● Archive Product (Admin only)
-● Non-admin User checkout (Create Order)
+● (complete) Archive Product (Admin only)
+● (complete) Non-admin User checkout (Create Order)
+
+● (complete) Set user as admin (Admin only)
+● Retrieve authenticated user’s orders
+● Retrieve all orders (Admin only)
 
 */

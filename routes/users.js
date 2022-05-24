@@ -2,6 +2,7 @@ const express = require("express");
 const controller = require("../controllers/users");
 const auth = require("../auth");
 
+const { verify, verifyAdmin } = auth;
 
 //create router
 const routes = express.Router();
@@ -24,10 +25,19 @@ routes.post("/login", (req, res) => {
 });
 
 // Retrieving user profile
-routes.get("/profile", auth.verify, (req, res) => {
+routes.get("/profile/", verify, (req, res) => {
     controller.getProfile(req.user.id)
         .then(result => res.send(result))
         .catch(err => res.send(err.message));
+});
+
+// Update user as admin
+routes.put("/admin/:userId", verify, verifyAdmin, (req, res) => {
+	let userId = req.params.userId;
+	controller
+		.setAdmin(userId)
+		.then(result => res.send(result))
+		.catch((err) => res.send(err.message));
 });
 
 module.exports = routes;

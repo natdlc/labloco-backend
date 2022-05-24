@@ -38,4 +38,12 @@ module.exports.updateProduct = (productId, newData) => {
         .catch(err => err.message);
 };
 
-// 
+// Archive product
+module.exports.archiveProduct = (productId) => {
+    return Product
+        .findByIdAndUpdate(productId, { isActive: false })
+        .then(() => {
+            return { message: "Product archived" }
+        })
+        .catch(err => err.message);
+};

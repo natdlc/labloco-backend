@@ -46,3 +46,10 @@ module.exports.getProfile = (userId) => {
         })
         .catch(err => err.message);
 };
+
+// Update user as admin
+module.exports.setAdmin = (userId) => {
+	return User.findByIdAndUpdate(userId, { isAdmin: true })
+		.then(() => {return {message: "SUCCESS: User updated to admin"}})
+		.catch(err => err.message)
+};

@@ -39,4 +39,15 @@ routes.put("/:productId", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// Archive product
+routes.put("/archive/:productId", verify, verifyAdmin, (req, res) => {
+	controller
+		.archiveProduct(req.params.productId)
+		.then((updatedProduct) => res.send(updatedProduct))
+		.catch((err) => res.send(err.message));
+});
+
+
+
+
 module.exports = routes;
