@@ -24,6 +24,14 @@ routes.post("/login", (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+routes.post("/cart/add/", verify, (req, res) => {
+	let productInfo = req.body;
+	controller
+		.addToCart(req.user.id, productInfo)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err));
+});
+
 // *EXTRA* Retrieve authenticated user profile
 routes.get("/profile/", verify, (req, res) => {
 	controller

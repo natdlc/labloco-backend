@@ -14,6 +14,22 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    cart: [
+        {
+            productId: {
+                type: String,
+                required: [true, 'Product must have an ID']
+            },
+            quantity: {
+                type: Number,
+                default: 1,
+            },
+            dateAdded: {
+                type: Date,
+                default: new Date()
+            }
+        }
+    ]
 });
 
 

@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Order = require("../models/Order");
+const Product = require("../models/Product");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -46,6 +47,25 @@ module.exports.userLogin = (user) => {
 			} else {
 				return false;
 			}
+		})
+		.catch((err) => err.message);
+};
+
+// *EXTRA* Add to cart
+module.exports.addToCart = async (userId, productInfo) => {
+	let { productId, quantity } = productInfo;
+
+	return Product.findById(productId)
+		.then((product) => {
+			let newProduct = { productId: product._id, quantity };
+
+			return User.findById(userId).then((user) => {
+				user.cart.push(newProduct);
+				return user
+					.save()
+					.then((result) => result)
+					.catch((err) => err.message);
+			});
 		})
 		.catch((err) => err.message);
 };
