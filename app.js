@@ -52,7 +52,7 @@ app.listen(
 ● (complete) Non-admin User checkout (Create Order)
 
 ● (complete) Set user as admin (Admin only)
-● (wip) Retrieve authenticated user’s orders
+● (complete) Retrieve authenticated user’s orders
 ● Retrieve all orders (Admin only)
 
 */
