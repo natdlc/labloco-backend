@@ -1,85 +1,33 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 
-// Non-admin User checkout (promise all)
-/* module.exports.createOrder = (userId, orderInfo) => {
-
-	//if more than one product
-    if (orderInfo.length) {
-        const subtotals = [];
-        let total = 0;
-        for (let i = 0; i < orderInfo.length; i++) {
-            subtotals.push(
-                Product.findById(orderInfo[i].productId)
-                    .then(product => {
-                        return orderInfo[i].quantity * product.price
-                    })
-                    .catch(err => err.message))
-        }
-
-        let order = Promise.all(subtotals).then(result => {
-            for (let i = 0; i < result.length; i++) {
-                total += result[i];
-            }
-
-            let newOrderDetails = {
-                userId: userId,
-                totalAmount: total
-            }
-
-            let newOrder = new Order(newOrderDetails);
-
-            for (let i = 0; i < orderInfo.length; i++) {
-                newOrder.products.push(orderInfo[i]);
-            }
-
-            return newOrder.save()
-                .then(order => order)
-                .catch(err => err.message);
-        }).catch(err => err.message)
-
-        return order;
-
-    } else { // if only one product
-        
-		let order = Product.findById(orderInfo.productId)
-			.then((product) => {
-
-				let newOrderDetails = {
-					userId: userId,
-					totalAmount: product.price * orderInfo.quantity,
-				};
-
-				let newOrder = new Order(newOrderDetails);
-
-				newOrder.products.push(orderInfo);
-
-				return newOrder
-					.save()
-					.then((order) => order)
-					.catch((err) => err.message);
-			})
-            .catch((err) => err.message);
-        
-        return order;
-    }
-    
-}; */
+//checks if product is active
+const isProductActive = (isActive) => {
+	if (isActive) {
+		return product;
+	} else {
+		return new Promise((resolve, reject) => {
+			reject({ message: "Product is not active" });
+		});
+	}
+};
 
 // Non-admin User checkout (async await)
 module.exports.checkout = async (req, res) => {
 	if (req.user.isAdmin) {
 		return res.send({ message: "Action forbidden" });
-	} else {
+    } else {
 		let cart = req.body;
 		let subtotals = [];
-		if (cart.length) {
+        if (cart.length) { // for multiple products
 			for (let i = 0; i < cart.length; i++) {
 				let product = await Product.findById(cart[i].productId)
-					.then((result) => result)
+					.then((product) => {
+						return isProductActive(product.isActive);
+					})
 					.catch((err) => err.message);
 				subtotals.push(product.price * cart[i].quantity);
-			}
+            };
 
 			let total = subtotals.reduce((p, c) => p + c, 0);
 
@@ -97,25 +45,32 @@ module.exports.checkout = async (req, res) => {
 			return newOrder
 				.save()
 				.then((result) => res.send(result))
-				.catch((err) => req.send(err.message));
-		} else {
+                .catch((err) => res.send(err.message));
+            
+		} else { // for one product
 			return Product.findById(cart.productId)
 				.then((product) => {
-					let total = cart.quantity * product.price;
+					if (product.isActive === false) {
+						return new Promise((resolve, reject) => {
+							reject({ message: "Product is not active" });
+						});
+					} else {
+						let total = cart.quantity * product.price;
 
-					let newOrderDetails = {
-						userId: req.user.id,
-						totalAmount: total,
-					};
+						let newOrderDetails = {
+							userId: req.user.id,
+							totalAmount: total,
+						};
 
-					let newOrder = new Order(newOrderDetails);
+						let newOrder = new Order(newOrderDetails);
 
-					newOrder.products.push(cart);
+						newOrder.products.push(cart);
 
-					return newOrder
-						.save()
-						.then((result) => res.send(result))
-						.catch((err) => res.send(err.message));
+						return newOrder
+							.save()
+							.then((result) => res.send(result))
+							.catch((err) => res.send(err.message));
+					}
 				})
 				.catch((err) => res.send(err.message));
 		}
@@ -138,11 +93,11 @@ module.exports.getAllOrders = async (req, res) => {
 
 [
     {
-        "productId": "628741acbd02d705404d6476",
+        "productId": "628c3ad6e84ef0b554c2e7ba",
         "quantity": 5
     },
     {
-        "productId": "628b734c8780922d348d1026",
+        "productId": "628c3adfe84ef0b554c2e7bc",
         "quantity": 5
     }
 ]

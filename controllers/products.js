@@ -1,20 +1,32 @@
 const Product = require("../models/Product");
 
 // Create Product (Admin only)
-module.exports.createProduct = (productInfo) => {
+module.exports.createProduct = async (productInfo) => {
 	let { name, description, price } = productInfo;
 
-	let newProduct = new Product({ name, description, price: price });
-
-	return newProduct
-		.save()
+	let productFound = await Product.findOne({ name })
 		.then((product) => product)
 		.catch((err) => err.message);
+
+	if (productFound) {
+		return new Promise((resolve, reject) => {
+			return resolve({
+				message: "Product creation failed: a product with same name exists",
+			});
+		});
+	} else {
+		let newProduct = new Product({ name, description, price: price });
+
+		return newProduct
+			.save()
+			.then((product) => product)
+			.catch((err) => err.message);
+	}
 };
 
 // Retrieve all active products
 module.exports.getActiveProducts = () => {
-	return Product.find({})
+	return Product.find({ isActive: true })
 		.then((products) => products)
 		.catch((err) => err.message);
 };

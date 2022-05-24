@@ -58,9 +58,12 @@ STRETCH
 ● (complete) Retrieve all orders (Admin only)
 
 EXTRAS
-● (complete) No duplicate users
+● (complete) No duplicate users (via email)
+● (complete) No duplicate product (via name)
 ● (complete) Retrieve authenticated user profile
 ● (complete) Retrieve all products (admin only)
 ● (complete) Retrieve single product (active only)
+● (complete) Can only order active products
+
 
 */

@@ -12,11 +12,11 @@ const salt = +process.env.SALT;
 module.exports.register = async (userInfo) => {
 	let { email, password } = userInfo;
 
-	let userFound = await User.find({ email })
+	let userFound = await User.findOne({ email })
 		.then((res) => res)
 		.catch((err) => err.message);
 
-	if (userFound.length) {
+	if (userFound) {
 		return new Promise((resolve, reject) => {
 			return resolve({ message: "Registration failed: email exists" });
 		});
