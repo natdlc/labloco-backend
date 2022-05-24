@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Order = require("../models/Order")
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -45,6 +46,13 @@ module.exports.getProfile = (userId) => {
             return user;
         })
         .catch(err => err.message);
+};
+
+// *SG* Get user orders
+module.exports.getUserOrders = (userId) => {
+	return Order.find({ userId })
+		.then((result) => result)
+		.catch((err) => err.message);
 };
 
 // Update user as admin

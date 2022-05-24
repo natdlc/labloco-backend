@@ -31,12 +31,21 @@ routes.get("/profile/", verify, (req, res) => {
         .catch(err => res.send(err.message));
 });
 
+// *SG* Retrieve user orders
+routes.get("/orders", verify, (req, res) => {
+	let userId = req.user.id;
+	controller
+		.getUserOrders(userId)
+		.then(result => res.send(result))
+		.catch(err => res.send(err.message));
+});
+
 // Update user as admin
-routes.put("/admin/:userId", verify, verifyAdmin, (req, res) => {
+routes.put("/:userId/admin", verify, verifyAdmin, (req, res) => {
 	let userId = req.params.userId;
 	controller
 		.setAdmin(userId)
-		.then(result => res.send(result))
+		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 });
 
