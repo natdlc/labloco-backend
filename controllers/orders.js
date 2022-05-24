@@ -1,39 +1,30 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 
-//checks if product is active
-const isProductActive = (isActive) => {
-	if (isActive) {
-		return product;
-	} else {
-		return new Promise((resolve, reject) => {
-			reject({ message: "Product is not active" });
-		});
+const getTotal = async (total, cart) => {
+	for (let i = 0; i < cart.length; i++) {
+		await Product.findById(cart[i].productId)
+			.then((product) => {
+				total += product.price * cart[i].quantity;
+			})
+			.catch((err) => err.message);
 	}
+	return total;
 };
 
 // Non-admin User checkout (async await)
 module.exports.checkout = async (req, res) => {
 	if (req.user.isAdmin) {
 		return res.send({ message: "Action forbidden" });
-    } else {
+	} else {
 		let cart = req.body;
-		let subtotals = [];
-        if (cart.length) { // for multiple products
-			for (let i = 0; i < cart.length; i++) {
-				let product = await Product.findById(cart[i].productId)
-					.then((product) => {
-						return isProductActive(product.isActive);
-					})
-					.catch((err) => err.message);
-				subtotals.push(product.price * cart[i].quantity);
-            };
-
-			let total = subtotals.reduce((p, c) => p + c, 0);
+		if (cart.length) {
+			// for multiple products
+			let total = 0;
 
 			let newOrderDetails = {
 				userId: req.user.id,
-				totalAmount: total,
+				totalAmount: await getTotal(total, cart),
 			};
 
 			let newOrder = new Order(newOrderDetails);
@@ -45,9 +36,9 @@ module.exports.checkout = async (req, res) => {
 			return newOrder
 				.save()
 				.then((result) => res.send(result))
-                .catch((err) => res.send(err.message));
-            
-		} else { // for one product
+				.catch((err) => res.send(err.message));
+		} else {
+			// for one product
 			return Product.findById(cart.productId)
 				.then((product) => {
 					if (product.isActive === false) {
@@ -87,19 +78,24 @@ module.exports.getAllOrders = async (req, res) => {
 /* 
 
 {
-    "productId": "628b734c8780922d348d1026",
+    "productId": "628c3adfe84ef0b554c2e7bc",
     "quantity": 5
 }
 
 [
     {
-        "productId": "628c3ad6e84ef0b554c2e7ba",
+        "productId": "628c3adfe84ef0b554c2e7bc",
+        "quantity": 3
+    },
+    {
+        "productId": "628c3c0ae84ef0b554c2e7c8",
         "quantity": 5
     },
     {
-        "productId": "628c3adfe84ef0b554c2e7bc",
-        "quantity": 5
+        "productId": "628c3ad6e84ef0b554c2e7ba",
+        "quantity": 2
     }
+
 ]
 
 */

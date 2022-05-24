@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const auth = require("../auth");
-const res = require("express/lib/response");
 
 const salt = +process.env.SALT;
 
