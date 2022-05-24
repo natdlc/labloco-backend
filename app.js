@@ -53,6 +53,6 @@ app.listen(
 
 ● (complete) Set user as admin (Admin only)
 ● (complete) Retrieve authenticated user’s orders
-● Retrieve all orders (Admin only)
+● (complete) Retrieve all orders (Admin only)
 
 */

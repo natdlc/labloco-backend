@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
 
-// Create new product
+// Create Product (Admin only)
 module.exports.createProduct = (productInfo) => {
 
     let { name, description, price } = productInfo;
@@ -14,21 +14,21 @@ module.exports.createProduct = (productInfo) => {
         .catch(err => err.message);
 };
 
-// Retrieve active products
+// Retrieve all active products
 module.exports.getActiveProducts = () => {
     return Product.find({})
         .then(products => products)
         .catch(err => err.message)
 };
 
-// Retrieve specific product
+// Retrieve single product
 module.exports.getProduct = (productId) => {
     return Product.findById(productId)
         .then(product => product)
         .catch(err => err.message);
 };
 
-// Update product
+// Update Product information (Admin only)
 module.exports.updateProduct = (productId, newData) => {
     return Product
         .findByIdAndUpdate(productId, newData)
@@ -38,7 +38,7 @@ module.exports.updateProduct = (productId, newData) => {
         .catch(err => err.message);
 };
 
-// Archive product
+// Archive Product (Admin only)
 module.exports.archiveProduct = (productId) => {
     return Product
         .findByIdAndUpdate(productId, { isActive: false })

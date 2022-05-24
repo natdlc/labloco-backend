@@ -7,7 +7,7 @@ const auth = require("../auth");
 
 const salt = +process.env.SALT;
 
-// Create user
+// User registration
 module.exports.register = (userInfo) => {
 	let { email, password } = userInfo;
 
@@ -22,7 +22,7 @@ module.exports.register = (userInfo) => {
 		.catch((err) => err.message);
 };
 
-// Create auth token for login
+// User authentication
 module.exports.userLogin = (user) => {
 	return User.findOne({ email: user.email })
 		.then((result) => {
@@ -38,7 +38,7 @@ module.exports.userLogin = (user) => {
 		.catch((err) => err.message);
 };
 
-// Get user profile
+// *EXTRA* Retrieve user profile
 module.exports.getProfile = (userId) => {
     return User.findById(userId)
         .then(user => {
@@ -48,14 +48,14 @@ module.exports.getProfile = (userId) => {
         .catch(err => err.message);
 };
 
-// *SG* Get user orders
+// *STRETCH* Retrieve authenticated user’s orders
 module.exports.getUserOrders = (userId) => {
 	return Order.find({ userId })
 		.then((result) => result)
 		.catch((err) => err.message);
 };
 
-// Update user as admin
+// *STRETCH* Set user as admin (Admin only)
 module.exports.setAdmin = (userId) => {
 	return User.findByIdAndUpdate(userId, { isAdmin: true })
 		.then(() => {return {message: "SUCCESS: User updated to admin"}})

@@ -1,8 +1,7 @@
-const res = require("express/lib/response");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 
-// Create order (promise all)
+// Non-admin User checkout (promise all)
 /* module.exports.createOrder = (userId, orderInfo) => {
 
 	//if more than one product
@@ -67,7 +66,7 @@ const Product = require("../models/Product");
     
 }; */
 
-// Create order (async await)
+// Non-admin User checkout (async await)
 module.exports.checkout = async (req, res) => {
 	if (req.user.isAdmin) {
 		return res.send({ message: "Action forbidden" });
@@ -121,6 +120,13 @@ module.exports.checkout = async (req, res) => {
 				.catch((err) => res.send(err.message));
 		}
 	}
+};
+
+// Retrieve all orders (Admin only)
+module.exports.getAllOrders = async (req, res) => {
+	return Order.find({})
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
 };
 
 /* 

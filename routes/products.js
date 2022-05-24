@@ -6,7 +6,7 @@ const routes = express.Router();
 
 const { verify, verifyAdmin } = auth;
 
-// Create new product
+// Create Product (Admin only)
 routes.post("/new", verify, verifyAdmin, (req, res) => {
 	let productInfo = req.body;
 	controller
@@ -15,7 +15,7 @@ routes.post("/new", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Get all active products
+// Retrieve all active products
 routes.get("/active", (req, res) => {
 	controller
 		.getActiveProducts()
@@ -23,7 +23,7 @@ routes.get("/active", (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Get specific product
+// Retrieve single product
 routes.get("/:productId", (req, res) => {
 	controller
 		.getProduct(req.params.productId)
@@ -31,7 +31,7 @@ routes.get("/:productId", (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Update a product
+// Update Product information (Admin only)
 routes.put("/:productId", verify, verifyAdmin, (req, res) => {
 	controller
 		.updateProduct(req.params.productId, req.body)
@@ -39,7 +39,7 @@ routes.put("/:productId", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Archive product
+// Archive Product (Admin only)
 routes.put("/archive/:productId", verify, verifyAdmin, (req, res) => {
 	controller
 		.archiveProduct(req.params.productId)
