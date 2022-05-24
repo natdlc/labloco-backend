@@ -1,25 +1,36 @@
 const User = require("../models/User");
-const Order = require("../models/Order")
+const Order = require("../models/Order");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const auth = require("../auth");
+const res = require("express/lib/response");
 
 const salt = +process.env.SALT;
 
 // User registration
-module.exports.register = (userInfo) => {
+module.exports.register = async (userInfo) => {
 	let { email, password } = userInfo;
 
-	let newUser = new User({
-		email,
-		password: bcrypt.hashSync(password, salt),
-	});
-
-	return newUser
-		.save()
-		.then((user) => user)
+	let userFound = await User.find({ email })
+		.then((res) => res)
 		.catch((err) => err.message);
+
+	if (userFound.length) {
+		return new Promise((resolve, reject) => {
+			return resolve({ message: "Registration failed: email exists" });
+		})
+	} else {
+		let newUser = new User({
+			email,
+			password: bcrypt.hashSync(password, salt),
+		});
+
+		return newUser
+			.save()
+			.then((user) => {return {message: "Successfully registered"}})
+			.catch((err) => err.message);
+	}
 };
 
 // User authentication
@@ -31,21 +42,21 @@ module.exports.userLogin = (user) => {
 				return {
 					accessToken: auth.createAccessToken(result.toObject()),
 				};
-            } else {
-                return false;
-            }
+			} else {
+				return false;
+			}
 		})
 		.catch((err) => err.message);
 };
 
 // *EXTRA* Retrieve user profile
 module.exports.getProfile = (userId) => {
-    return User.findById(userId)
-        .then(user => {
-            user.password = '';
-            return user;
-        })
-        .catch(err => err.message);
+	return User.findById(userId)
+		.then((user) => {
+			user.password = "";
+			return user;
+		})
+		.catch((err) => err.message);
 };
 
 // *STRETCH* Retrieve authenticated user’s orders
@@ -58,6 +69,8 @@ module.exports.getUserOrders = (userId) => {
 // *STRETCH* Set user as admin (Admin only)
 module.exports.setAdmin = (userId) => {
 	return User.findByIdAndUpdate(userId, { isAdmin: true })
-		.then(() => {return {message: "SUCCESS: User updated to admin"}})
-		.catch(err => err.message)
+		.then(() => {
+			return { message: "SUCCESS: User updated to admin" };
+		})
+		.catch((err) => err.message);
 };
