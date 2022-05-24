@@ -26,9 +26,10 @@ routes.post("/login", (req, res) => {
 
 // *EXTRA* Retrieve authenticated user profile
 routes.get("/profile/", verify, (req, res) => {
-    controller.getProfile(req.user.id)
-        .then(result => res.send(result))
-        .catch(err => res.send(err.message));
+	controller
+		.getProfile(req.user.id)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
 });
 
 // *STRETCH* Retrieve user orders
@@ -36,8 +37,8 @@ routes.get("/orders", verify, (req, res) => {
 	let userId = req.user.id;
 	controller
 		.getUserOrders(userId)
-		.then(result => res.send(result))
-		.catch(err => res.send(err.message));
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
 });
 
 // Update user as admin

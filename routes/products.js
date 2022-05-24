@@ -35,8 +35,8 @@ routes.get("/:productId/", (req, res) => {
 routes.get("/", verify, verifyAdmin, (req, res) => {
 	controller
 		.getAllProducts()
-		.then(result => res.send(result))
-		.catch(err => res.send(err.message));
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
 });
 
 // Update Product information (Admin only)
@@ -54,8 +54,5 @@ routes.put("/archive/:productId", verify, verifyAdmin, (req, res) => {
 		.then((updatedProduct) => res.send(updatedProduct))
 		.catch((err) => res.send(err.message));
 });
-
-
-
 
 module.exports = routes;

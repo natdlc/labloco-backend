@@ -19,7 +19,7 @@ module.exports.register = async (userInfo) => {
 	if (userFound.length) {
 		return new Promise((resolve, reject) => {
 			return resolve({ message: "Registration failed: email exists" });
-		})
+		});
 	} else {
 		let newUser = new User({
 			email,
@@ -28,7 +28,9 @@ module.exports.register = async (userInfo) => {
 
 		return newUser
 			.save()
-			.then((user) => {return {message: "Successfully registered"}})
+			.then(() => {
+				return { message: "Successfully registered" };
+			})
 			.catch((err) => err.message);
 	}
 };
