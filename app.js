@@ -42,6 +42,7 @@ app.listen(
 
 /* Minimum requirements (ZUITT)
 
+MINIMUM
 ● (complete) User registration 
 ● (complete) User authentication
 ● (complete) Create Product (Admin only)
@@ -60,7 +61,11 @@ EXTRAS
 ● (complete) No duplicate users
 ● (complete) Retrieve authenticated user profile
 ● (complete) Retrieve all products (admin only)
+● Retrieve single product (active only)
 ●
 ●
+●
+●
+● Delete a product (admin only)
 
 */

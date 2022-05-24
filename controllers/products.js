@@ -22,7 +22,13 @@ module.exports.getActiveProducts = () => {
 // Retrieve single product
 module.exports.getProduct = (productId) => {
 	return Product.findById(productId)
-		.then((product) => product)
+        .then((product) => {
+            if (product.isActive) {
+                return product;
+            } else {
+                return { message: "Product is not active" };
+            }
+        })
 		.catch((err) => err.message);
 };
 
