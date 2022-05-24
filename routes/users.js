@@ -24,14 +24,14 @@ routes.post("/login", (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Retrieving user profile
+// *EXTRA* Retrieve authenticated user profile
 routes.get("/profile/", verify, (req, res) => {
     controller.getProfile(req.user.id)
         .then(result => res.send(result))
         .catch(err => res.send(err.message));
 });
 
-// *SG* Retrieve user orders
+// *STRETCH* Retrieve user orders
 routes.get("/orders", verify, (req, res) => {
 	let userId = req.user.id;
 	controller

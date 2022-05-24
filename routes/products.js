@@ -24,11 +24,19 @@ routes.get("/active", (req, res) => {
 });
 
 // Retrieve single product
-routes.get("/:productId", (req, res) => {
+routes.get("/:productId/", (req, res) => {
 	controller
 		.getProduct(req.params.productId)
 		.then((product) => res.send(product))
 		.catch((err) => res.send(err.message));
+});
+
+// *EXTRA* Retrieve all products (admin only)
+routes.get("/", verify, verifyAdmin, (req, res) => {
+	controller
+		.getAllProducts()
+		.then(result => res.send(result))
+		.catch(err => res.send(err.message));
 });
 
 // Update Product information (Admin only)

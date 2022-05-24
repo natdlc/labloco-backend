@@ -49,7 +49,7 @@ module.exports.userLogin = (user) => {
 		.catch((err) => err.message);
 };
 
-// *EXTRA* Retrieve user profile
+// *EXTRA* Retrieve authenticated user profile
 module.exports.getProfile = (userId) => {
 	return User.findById(userId)
 		.then((user) => {

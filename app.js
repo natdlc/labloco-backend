@@ -51,8 +51,16 @@ app.listen(
 ● (complete) Archive Product (Admin only)
 ● (complete) Non-admin User checkout (Create Order)
 
+STRETCH
 ● (complete) Set user as admin (Admin only)
 ● (complete) Retrieve authenticated user’s orders
 ● (complete) Retrieve all orders (Admin only)
+
+EXTRAS
+● (complete) No duplicate users
+● (complete) Retrieve authenticated user profile
+● (complete) Retrieve all products (admin only)
+●
+●
 
 */
