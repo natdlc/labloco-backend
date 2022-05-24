@@ -58,7 +58,7 @@ STRETCH
 ● (complete) Retrieve all orders (Admin only)
 
 EXTRAS
-● Add to cart (auth)
+● (complete) Add to cart (auth)
 ● (complete) No duplicate users (via email)
 ● (complete) No duplicate product (via name)
 ● (complete) Retrieve authenticated user profile
