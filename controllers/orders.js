@@ -68,11 +68,13 @@ module.exports.checkout = async (req, res) => {
 		let total = 0;
 
 		let totalAmount = await calculate(total, cart);
-		console.log(totalAmount);
 		if (totalAmount) {
+			// if discount id is provided
 			if (discountId) {
 				let discount = await getDiscount(discountId, res);
+				// if discount is valid
 				if (discount) {
+					// if discount is percentage-based instead of fixed amount
 					if (discount.percentage) {
 						totalAmount =
 							totalAmount - totalAmount * (discount.percentage / 100);
@@ -84,7 +86,7 @@ module.exports.checkout = async (req, res) => {
 						message: "Error: discount invalid",
 					});
 				}
-
+				
 				cart.pop();
 
 				let newOrder = createOrder(req, totalAmount);
