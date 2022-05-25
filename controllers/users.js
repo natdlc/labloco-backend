@@ -57,15 +57,19 @@ module.exports.addToCart = async (userId, productInfo) => {
 
 	return Product.findById(productId)
 		.then((product) => {
-			let newProduct = { productId: product._id, quantity };
+			if (product.isActive) {
+				let newProduct = { productId: product._id, quantity };
 
-			return User.findById(userId).then((user) => {
-				user.cart.push(newProduct);
-				return user
-					.save()
-					.then((result) => result)
-					.catch((err) => err.message);
-			});
+				return User.findById(userId).then((user) => {
+					user.cart.push(newProduct);
+					return user
+						.save()
+						.then((result) => result)
+						.catch((err) => err.message);
+				});
+			} else {
+				return Promise.reject({message: "Product is inactive"})
+			}
 		})
 		.catch((err) => err.message);
 };

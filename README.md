@@ -21,7 +21,7 @@ STRETCH
 
 EXTRAS
 
-- (complete) Add to cart (auth) 
+- (complete) Add to cart active product only (auth) 
 - (complete) No duplicate users (via email)
 - (complete) No duplicate product (via name)
 - (complete) Retrieve authenticated user profile
