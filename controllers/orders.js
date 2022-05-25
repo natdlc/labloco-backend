@@ -9,7 +9,7 @@ const calculate = async (total, cart) => {
 				if (product.isActive) {
 					total += product.price * cart[i].quantity;
 				} else {
-					total = null;
+					total = NaN;
 					return total;
 				}
 			})
@@ -20,7 +20,6 @@ const calculate = async (total, cart) => {
 
 const updateDatabase = (cart, newOrder, res, discount) => {
 	cart.forEach((product) => newOrder.products.push(product));
-	console.log(discount);
 	if (discount) {
 		let newDiscount = {
 			discountId: discount._id,
@@ -69,7 +68,7 @@ module.exports.checkout = async (req, res) => {
 		let total = 0;
 
 		let totalAmount = await calculate(total, cart);
-
+		console.log(totalAmount);
 		if (totalAmount) {
 			if (discountId) {
 				let discount = await getDiscount(discountId, res);
@@ -92,7 +91,8 @@ module.exports.checkout = async (req, res) => {
 
 				return updateDatabase(cart, newOrder, res, discount);
 			} else {
-				return updateDatabase(cart, newOrder, res, discount);
+				let newOrder = createOrder(req, totalAmount);
+				return updateDatabase(cart, newOrder, res);
 			}
 		} else {
 			return Promise.reject({ message: "Can't process order" })

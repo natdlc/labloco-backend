@@ -60,7 +60,7 @@ EXTRAS
 ● (complete) Can only order active products
 ● (complete) Create discounts (admin only)
 ● (complete) Retrieve discounts (admin only)
-● (complete) Discounts apply to orders (users only)
+● (complete) Discounts apply to orders (users only) x
 ● (complete) Set discount to inactive (admin only)
 
 
