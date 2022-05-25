@@ -68,11 +68,28 @@ module.exports.addToCart = async (userId, productInfo) => {
 						.catch((err) => err.message);
 				});
 			} else {
-				return Promise.reject({message: "Product is inactive"})
+				return Promise.reject({ message: "Product is inactive" });
 			}
 		})
 		.catch((err) => err.message);
 };
+
+// *EXTRA* Remove product from cart
+module.exports.removeFromCart = (userId, productId) => {
+	return User.findByIdAndUpdate(
+		userId,
+		{ $pull: {
+				cart: {
+					productId,
+				},
+			},
+		},
+		{ safe: true, upsert: true }
+	)
+		.then((result) => result)
+		.catch((err) => err.message);
+};
+
 // *EXTRA* Retrieve authenticated user profile
 module.exports.getProfile = (userId) => {
 	return User.findById(userId)

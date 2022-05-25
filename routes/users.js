@@ -33,6 +33,14 @@ routes.post("/cart/add/", verify, (req, res) => {
 		.catch((err) => res.send(err));
 });
 
+// *EXTRA* Remove from cart
+routes.delete("/cart/remove/:productId", verify, (req, res) => {
+	controller
+		.removeFromCart(req.user.id, req.params.productId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 // *EXTRA* Retrieve authenticated user profile
 routes.get("/profile/", verify, (req, res) => {
 	controller
