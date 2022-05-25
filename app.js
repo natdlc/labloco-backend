@@ -7,6 +7,7 @@ require("dotenv").config();
 const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
 const orderRoutes = require("./routes/orders");
+const discountRoutes = require("./routes/discounts");
 
 // env
 const port = process.env.PORT;
@@ -25,6 +26,7 @@ db.once("open", () => console.log(`--> Connected to MongoDB`));
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
+app.use("/discounts", discountRoutes);
 
 // gateway res
 app.get("/", (req, res) => res.send("Welcome to LabLoco"));
@@ -56,6 +58,13 @@ EXTRAS
 ● (complete) Retrieve all products (admin only)
 ● (complete) Retrieve single product (active only)
 ● (complete) Can only order active products
+● (complete) Create discounts (admin only)
+● (complete) Retrieve discounts (admin only)
+● (complete) Discounts apply to orders (users only)
+● (complete) Set discount to inactive (admin only)
+
+
+
 
 
 */

@@ -13,6 +13,22 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
+	discount: [
+		{
+			discountId: {
+				type: String,
+				required: [true, "Discount id is required"]
+			},
+			percentage: {
+				type: Number,
+				default: 0
+			},
+			amount: {
+				type: Number,
+				required: [true, "Discount amount is required"]
+			}
+		}
+	],
 	products: [
 		{
 			productId: {

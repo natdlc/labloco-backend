@@ -24,6 +24,7 @@ routes.post("/login", (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Add to cart (authed)
 routes.post("/cart/add/", verify, (req, res) => {
 	let productInfo = req.body;
 	controller

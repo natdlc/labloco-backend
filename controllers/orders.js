@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
+const Discount = require("../models/Discount");
 
 const calculate = async (total, cart) => {
 	for (let i = 0; i < cart.length; i++) {
@@ -17,63 +18,85 @@ const calculate = async (total, cart) => {
 	return total;
 };
 
-// Non-admin User checkout (async await)
+const updateDatabase = (cart, newOrder, res, discount) => {
+	cart.forEach((product) => newOrder.products.push(product));
+	console.log(discount);
+	if (discount) {
+		let newDiscount = {
+			discountId: discount._id,
+			percentage: discount.percentage,
+			amount: discount.amount,
+		};
+		newOrder.discount.push(newDiscount);
+	}
+
+	return newOrder
+		.save()
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+};
+
+const createOrder = (req, totalAmount) => {
+	let newOrderDetails = {
+		userId: req.user.id,
+		totalAmount,
+	};
+
+	let newOrder = new Order(newOrderDetails);
+
+	return newOrder;
+};
+
+const getDiscount = (discountId, res) => {
+	return Discount.findById(discountId)
+		.then((discount) => {
+			if (discount.isActive) {
+				return discount;
+			} else {
+				return false;
+			}
+		})
+		.catch((err) => err.message);
+};
+
+// Non-admin User checkout
 module.exports.checkout = async (req, res) => {
 	if (req.user.isAdmin) {
 		return res.send({ message: "Action forbidden" });
 	} else {
 		let cart = req.body;
-		if (cart.length) {
-			// for multiple products
-			let total = 0;
+		let discountId = cart[cart.length - 1].discountId;
+		let total = 0;
 
-			let getTotalAmount = await calculate(total, cart);
+		let totalAmount = await calculate(total, cart);
 
-			if (getTotalAmount) {
-				let newOrderDetails = {
-					userId: req.user.id,
-					totalAmount: getTotalAmount,
-				};
+		if (totalAmount) {
+			if (discountId) {
+				let discount = await getDiscount(discountId, res);
+				if (discount) {
+					if (discount.percentage) {
+						totalAmount =
+							totalAmount - totalAmount * (discount.percentage / 100);
+					} else {
+						totalAmount = totalAmount - discount.amount;
+					}
+				} else {
+					return res.send({
+						message: "Error: discount invalid",
+					});
+				}
 
-				let newOrder = new Order(newOrderDetails);
+				cart.pop();
 
-				cart.forEach((product) => newOrder.products.push(product));
+				let newOrder = createOrder(req, totalAmount);
 
-				return newOrder
-					.save()
-					.then((result) => res.send(result))
-					.catch((err) => res.send(err.message));
+				return updateDatabase(cart, newOrder, res, discount);
 			} else {
-				return Promise.reject({ message: "Can't process order" })
-					.then((result) => res.send(result))
-					.catch((err) => res.send(err.message));
+				return updateDatabase(cart, newOrder, res, discount);
 			}
 		} else {
-			// for one product
-			return Product.findById(cart.productId)
-				.then((product) => {
-					if (product.isActive === false) {
-						return new Promise((resolve, reject) => {
-							reject({ message: "Product is not active" });
-						});
-					} else {
-						let total = cart.quantity * product.price;
-
-						let newOrderDetails = {
-							userId: req.user.id,
-							totalAmount: total,
-						};
-
-						let newOrder = new Order(newOrderDetails);
-
-						newOrder.products.push(cart);
-
-						return newOrder
-							.save()
-							.then((result) => res.send(result))
-							.catch((err) => res.send(err.message));
-					}
-				})
+			return Promise.reject({ message: "Can't process order" })
+				.then((result) => res.send(result))
 				.catch((err) => res.send(err.message));
 		}
 	}
@@ -85,28 +108,3 @@ module.exports.getAllOrders = async (req, res) => {
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 };
-
-/* 
-
-{
-    "productId": "628c3adfe84ef0b554c2e7bc",
-    "quantity": 5
-}
-
-[
-    {
-        "productId": "628c3adfe84ef0b554c2e7bc",
-        "quantity": 3
-    },
-    {
-        "productId": "628c3c0ae84ef0b554c2e7c8",
-        "quantity": 5
-    },
-    {
-        "productId": "628c3ad6e84ef0b554c2e7ba",
-        "quantity": 2
-    }
-
-]
-
-*/
