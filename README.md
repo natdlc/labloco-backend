@@ -21,17 +21,17 @@ STRETCH
 
 EXTRAS
 
-- (complete) Add to cart active product only (auth) x
-- (complete) Remove product from cart (auth) x
-- (complete) No duplicate users (via email) x
-- (complete) No duplicate product (via name) x
-- (complete) Retrieve authenticated user profile x
-- (complete) Retrieve all products (admin only) x
-- (complete) Retrieve single product (active only) x
-- (complete) Can only order active products x
-- (complete) Create discounts (admin only) x
-- (complete) Retrieve discounts (admin only) x
-- (complete) Discounts apply to orders (users only) x
-- (complete) Calculate percentage-based discounts x
-- (complete) Calculate fixed-amount-based discounts x
-- (complete) Set discount to inactive (admin only) x
+- (complete) Add to cart active product only (auth)
+- (complete) Remove product from cart (auth)
+- (complete) No duplicate users (via email)
+- (complete) No duplicate product (via name)
+- (complete) Retrieve authenticated user profile
+- (complete) Retrieve all products (admin only)
+- (complete) Retrieve single product (active only)
+- (complete) Can only order active products
+- (complete) Create discounts (admin only)
+- (complete) Retrieve discounts (admin only)
+- (complete) Discounts apply to orders (users only)
+- (complete) Calculate percentage-based discounts
+- (complete) Calculate fixed-amount-based discounts
+- (complete) Set discount to inactive (admin only)
