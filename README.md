@@ -37,7 +37,8 @@ Products
 
 Orders
   - (complete) Can only order active products
-  - () Orders catch cart products
+  - (complete) Orders catch cart products
+  - () User's cart clears when order is processed
   - (complete) Discounts apply to orders (users only)
   - (complete) Calculate percentage-based discounts
   - (complete) Calculate fixed-amount-based discounts

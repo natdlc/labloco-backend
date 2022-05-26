@@ -76,20 +76,33 @@ module.exports.addToCart = async (userId, productInfo) => {
 
 // *EXTRA* Remove product from cart
 module.exports.removeFromCart = (userId, productId) => {
-	return User.findByIdAndUpdate(
-		userId,
-		{ $pull: {
-				cart: {
-					productId,
+	if (userId) {
+		return User.findByIdAndUpdate(
+			userId,
+			{
+				$pull: {
+					cart: {
+						productId,
+					},
 				},
 			},
-		},
-		{ safe: true, upsert: true }
-	)
-		.then((result) => result)
-		.catch((err) => err.message);
+			{ safe: true, upsert: true }
+		)
+			.then((result) => result)
+			.catch((err) => err.message);
+	} else {
+		return { message: "user not found" };
+	}
 };
 
+// *EXTRA* Clear cart
+module.exports.clearCart = (userId) => {
+	return User.findByIdAndUpdate(userId, { cart: [] })
+		.then((result) => {
+			return { message: "cart cleared" };
+		})
+		.catch((err) => err.message);
+};
 // *EXTRA* Retrieve authenticated user profile
 module.exports.getProfile = (userId) => {
 	return User.findById(userId)

@@ -34,9 +34,17 @@ routes.post("/cart/add/", verify, (req, res) => {
 });
 
 // *EXTRA* Remove from cart
-routes.delete("/cart/remove/:productId", verify, (req, res) => {
+routes.delete("/cart/remove/:productId/", verify, (req, res) => {
 	controller
 		.removeFromCart(req.user.id, req.params.productId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
+// *EXTRA* Clear cart
+routes.delete("/cart/clear", verify, (req, res) => {
+	controller
+		.clearCart(req.user.id)
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 });

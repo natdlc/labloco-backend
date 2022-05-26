@@ -3,6 +3,14 @@ const Product = require("../models/Product");
 const Discount = require("../models/Discount");
 const User = require("../models/User");
 
+const clearCart = (userId, cart) => {
+	return User.findByIdAndUpdate(userId, { cart: [] })
+		.then((result) => {
+			return { message: "cart cleared" };
+		})
+		.catch((err) => err.message);
+};
+
 const getCart = (userId) => {
 	return User.findById(userId)
 		.then((user) => {
@@ -27,7 +35,7 @@ const calculate = async (total, cart) => {
 	return total;
 };
 
-const updateDatabase = (cart, newOrder, res, discount) => {
+const updateDatabase = async (cart, newOrder, res, discount, userId) => {
 	cart.forEach((product) => newOrder.products.push(product));
 	if (discount) {
 		let newDiscount = {
@@ -37,6 +45,8 @@ const updateDatabase = (cart, newOrder, res, discount) => {
 		};
 		newOrder.discount.push(newDiscount);
 	}
+
+	await clearCart(userId, cart);
 
 	return newOrder
 		.save()
@@ -97,11 +107,10 @@ module.exports.checkout = async (req, res) => {
 					});
 				}
 				let newOrder = createOrder(req, totalAmount);
-
-				return updateDatabase(cart, newOrder, res, discount);
+				return updateDatabase(cart, newOrder, res, discount, req.user.id);
 			} else {
 				let newOrder = createOrder(req, totalAmount);
-				return updateDatabase(cart, newOrder, res);
+				return updateDatabase(cart, newOrder, res, discountId, req.user.id);
 			}
 		} else {
 			return Promise.reject({ message: "Can't process order" })
