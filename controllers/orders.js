@@ -1,6 +1,15 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Discount = require("../models/Discount");
+const User = require("../models/User");
+
+const getCart = (userId) => {
+	return User.findById(userId)
+		.then((user) => {
+			return user.cart;
+		})
+		.catch((err) => err.message);
+};
 
 const calculate = async (total, cart) => {
 	for (let i = 0; i < cart.length; i++) {
@@ -63,11 +72,12 @@ module.exports.checkout = async (req, res) => {
 	if (req.user.isAdmin) {
 		return res.send({ message: "Action forbidden" });
 	} else {
-		let cart = req.body;
-		let discountId = cart[cart.length - 1].discountId;
+		let cart = await getCart(req.user.id);
+		let discountId = req.params.discountId;
 		let total = 0;
 
 		let totalAmount = await calculate(total, cart);
+		// if all products valid
 		if (totalAmount) {
 			// if discount id is provided
 			if (discountId) {
@@ -86,9 +96,6 @@ module.exports.checkout = async (req, res) => {
 						message: "Error: discount invalid",
 					});
 				}
-				
-				cart.pop();
-
 				let newOrder = createOrder(req, totalAmount);
 
 				return updateDatabase(cart, newOrder, res, discount);

@@ -6,8 +6,11 @@ const routes = express.Router();
 
 const { verify, verifyAdmin } = auth;
 
-// Non-admin user checkout 
-routes.post("/new", verify, controller.checkout);
+// Non-admin discounted user checkout 
+routes.post("/new/:discountId", verify, controller.checkout);
+
+// Non-admin user checkout
+routes.post("/new/", verify, controller.checkout);
 
 // Retrieve all orders (Admin only)
 routes.get("/all", verify, verifyAdmin, controller.getAllOrders);
