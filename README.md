@@ -24,7 +24,7 @@ EXTRAS
 Cart
   - (complete) Add to cart active product only (auth)
   - (complete) Remove product from cart (auth)
-  - () Clear cart (auth)
+  - (complete) Clear cart (auth)
 
 Users
   - (complete) No duplicate users (via email)
@@ -38,7 +38,7 @@ Products
 Orders
   - (complete) Can only order active products
   - (complete) Orders catch cart products
-  - () User's cart clears when order is processed
+  - (complete) User's cart clears when order is processed
   - (complete) Discounts apply to orders (users only)
   - (complete) Calculate percentage-based discounts
   - (complete) Calculate fixed-amount-based discounts
