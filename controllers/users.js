@@ -88,7 +88,9 @@ module.exports.removeFromCart = (userId, productId) => {
 			},
 			{ safe: true, upsert: true }
 		)
-			.then((result) => result)
+			.then((result) => {
+				return { message: "Product removed from cart" };
+			})
 			.catch((err) => err.message);
 	} else {
 		return { message: "user not found" };
