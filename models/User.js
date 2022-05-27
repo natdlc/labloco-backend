@@ -9,6 +9,14 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		require: [true, "Password is required"],
 	},
+	address: {
+		type: String,
+		default: "",
+	},
+	mobileNum: {
+		type: String,
+		default: "",
+	},
 	isAdmin: {
 		type: Boolean,
 		default: false,
