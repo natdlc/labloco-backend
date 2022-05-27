@@ -20,7 +20,19 @@ const productSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         default: new Date()
-    }
+    },
+    options: [
+        {
+            label: {
+                type: String,
+                required: [true, "Label is required"]
+            },
+            value: {
+                type: String,
+                required: [true, "Value is required"]
+            }
+        }
+    ]
 });
 
 module.exports = mongoose.model("Product", productSchema);

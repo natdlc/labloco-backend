@@ -35,6 +35,7 @@ Products
   - (complete) No duplicate product (via name)
   - (complete) Retrieve all products (admin only)
   - (complete) Retrieve single product (active only)
+  - () Include options array for custom labels with values (admin only) 
 
 Orders
   - (complete) Can only order active products
@@ -48,3 +49,7 @@ Discounts
   - (complete) Create discounts (admin only)
   - (complete) Retrieve discounts (admin only)
   - (complete) Set discount to inactive (admin only)
+
+Courier
+  - () Create courier options (admin only)
+  - () Deactivate couriers (admin only)
