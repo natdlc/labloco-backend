@@ -28,7 +28,7 @@ routes.post("/login", (req, res) => {
 routes.post("/cart/add/", verify, (req, res) => {
 	let productInfo = req.body;
 	controller
-		.addToCart(req.user.id, productInfo)
+		.addToCart(req.user.id, productInfo, req.user.isAdmin)
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err));
 });

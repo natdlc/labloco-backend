@@ -52,26 +52,30 @@ module.exports.userLogin = (user) => {
 };
 
 // *EXTRA* Add to cart
-module.exports.addToCart = async (userId, productInfo) => {
-	let { productId, quantity } = productInfo;
+module.exports.addToCart = async (userId, productInfo, userIsAdmin) => {
+	if (userIsAdmin) {
+		return { message: "Action forbidden" };
+	} else {
+		let { productId, quantity } = productInfo;
 
-	return Product.findById(productId)
-		.then((product) => {
-			if (product.isActive) {
-				let newProduct = { productId: product._id, quantity };
+		return Product.findById(productId)
+			.then((product) => {
+				if (product.isActive) {
+					let newProduct = { productId: product._id, quantity };
 
-				return User.findById(userId).then((user) => {
-					user.cart.push(newProduct);
-					return user
-						.save()
-						.then((result) => result)
-						.catch((err) => err.message);
-				});
-			} else {
-				return Promise.reject({ message: "Product is inactive" });
-			}
-		})
-		.catch((err) => err.message);
+					return User.findById(userId).then((user) => {
+						user.cart.push(newProduct);
+						return user
+							.save()
+							.then((result) => result)
+							.catch((err) => err.message);
+					});
+				} else {
+					return Promise.reject({ message: "Product is inactive" });
+				}
+			})
+			.catch((err) => err.message);
+	}
 };
 
 // *EXTRA* Remove product from cart

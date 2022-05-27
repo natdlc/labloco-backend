@@ -19,7 +19,7 @@ const getCart = (userId) => {
 		.catch((err) => err.message);
 };
 
-const calculate = async (total, cart) => {
+const calculateTotal = async (total, cart) => {
 	for (let i = 0; i < cart.length; i++) {
 		await Product.findById(cart[i].productId)
 			.then((product) => {
@@ -86,7 +86,7 @@ module.exports.checkout = async (req, res) => {
 		let discountId = req.params.discountId;
 		let total = 0;
 
-		let totalAmount = await calculate(total, cart);
+		let totalAmount = await calculateTotal(total, cart);
 		// if all products valid
 		if (totalAmount) {
 			// if discount id is provided

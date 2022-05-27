@@ -25,6 +25,7 @@ Cart
   - (complete) Add to cart active product only (auth)
   - (complete) Remove product from cart (auth)
   - (complete) Clear cart (auth)
+  - (complete) Admin can't add to cart
 
 Users
   - (complete) No duplicate users (via email)
