@@ -9,6 +9,14 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		require: [true, "Password is required"],
 	},
+	firstName: {
+		type: String,
+		require: [true, "First name is required"]
+	},
+	lastName: {
+		type: String,
+		require: [true, "Last name is required"]
+	},
 	address: {
 		type: String,
 		default: "",
