@@ -1,4 +1,4 @@
-Capstone 2 Requirements
+Welcome! This is the backend for Zuitt's E-commerce capstone. Listed below are all the features built (and in progress).
 
 MINIMUM
 
@@ -49,8 +49,9 @@ Products
 - (complete) Delete image for product (admin only)
 - (complete) Add custom order option with value (admin only)
 - (complete) Delete custom order option (admin only)
-- () Add categories to product (admin only)
-- () Remove from category (admin only)
+- (complete) Add categories to product (admin only)
+- (complete) Add only active categories to product (admin only)
+- (complete) Remove from category (admin only)
 
 Category
 

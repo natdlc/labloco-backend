@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Category = require("../models/Category");
 
 // Create Product (Admin only)
 module.exports.createProduct = async (productInfo) => {
@@ -61,6 +62,24 @@ module.exports.addOption = (productId, optionInfo) => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Add category (admin only)
+module.exports.addCategory = async (productId, categoryId) => {
+	return await Product.findById(productId).then(async (product) => {
+		const category = await Category.findById(categoryId);
+		if (category.isActive) {
+			product.categories.push({ categoryId });
+			return product
+				.save()
+				.then((result) => {
+					return { message: "Category added" };
+				})
+				.catch((err) => err.message);
+		} else {
+			return { message: "category is inactive" };
+		}
+	});
+};
+
 // Retrieve all active products
 module.exports.getActiveProducts = () => {
 	return Product.find({ isActive: true })
@@ -117,6 +136,21 @@ module.exports.deleteOption = (productId, optionId) => {
 	})
 		.then(() => {
 			return { message: "Option deleted successfully" };
+		})
+		.catch((err) => err.message);
+};
+
+// *EXTRA* Delete a category (admin only)
+module.exports.deleteCategory = async (productId, categoryId) => {
+	return await Product.findByIdAndUpdate(productId, {
+		$pull: {
+			categories: {
+				categoryId,
+			},
+		},
+	})
+		.then(() => {
+			return { message: "Category deleted successfully" };
 		})
 		.catch((err) => err.message);
 };

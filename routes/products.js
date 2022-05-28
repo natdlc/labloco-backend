@@ -31,13 +31,28 @@ routes.post(
 	}
 );
 
-// *EXTRA Add custom order option (admin only)
+// *EXTRA* Add custom order option (admin only)
 routes.post("/option/:productId", verify, verifyAdmin, (req, res) => {
 	controller
 		.addOption(req.params.productId, req.body)
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 });
+
+// *EXTRA* Add a category (admin only)
+routes.post(
+	"/:productId/category/:categoryId/add",
+	verify,
+	verifyAdmin,
+	(req, res) => {
+		let productId = req.params.productId;
+		let categoryId = req.params.categoryId;
+		controller
+			.addCategory(productId, categoryId)
+			.then((result) => res.send(result))
+			.catch((err) => res.send(err.message));
+	}
+);
 
 // Retrieve all active products
 routes.get("/active", (req, res) => {
@@ -86,5 +101,18 @@ routes.delete("/option/:productId", verify, verifyAdmin, (req, res) => {
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 });
+
+// *EXTRA* Delete a category (admin only)
+routes.delete(
+	"/:productId/category/:categoryId/delete",
+	verify,
+	verifyAdmin,
+	(req, res) => {
+		controller
+			.deleteCategory(req.params.productId, req.params.categoryId)
+			.then((result) => res.send(result))
+			.catch((err) => res.send(err.message));
+	}
+);
 
 module.exports = routes;
