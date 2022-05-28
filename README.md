@@ -58,8 +58,9 @@ Category
 - (complete) Add hot/featured products section (admin only)
 - (complete) retrieve all active categories (all users)
 - (complete) Retrieve all categories (admin only)
+- () Edit category name
 - (complete) Archive a category (admin only)
-- () Remove a category (admin only)
+- (complete) Remove a category (admin only)
 - () Add product to category (admin only)
 
 Courier

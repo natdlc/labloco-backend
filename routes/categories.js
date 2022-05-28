@@ -30,10 +30,21 @@ routes.get("/all", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Edit category name (admin only)
+routes.put("/edit/:categoryId", verify, verifyAdmin, (req, res) => {});
+
 // *EXTRA* Archive a category (admin only)
 routes.put("/archive/:categoryId", verify, verifyAdmin, (req, res) => {
 	controller
 		.archiveCategory(req.params.categoryId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
+// *EXTRA* Delete a category (admin only)
+routes.delete("/delete/:categoryId", verify, verifyAdmin, (req, res) => {
+	controller
+		.deleteCategory(req.params.categoryId)
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 });

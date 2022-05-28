@@ -37,3 +37,12 @@ module.exports.archiveCategory = (categoryId) => {
 		})
 		.catch((err) => err.message);
 };
+
+// *EXTRA* Delete a category (admin only)
+module.exports.deleteCategory = (categoryId) => {
+	return Category.findByIdAndRemove(categoryId)
+		.then(() => {
+			return { message: "Category removed" };
+		})
+		.catch((err) => err.message);
+};
