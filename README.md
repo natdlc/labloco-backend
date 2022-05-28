@@ -48,16 +48,17 @@ Products
 - (complete) Retrieve image for product
 - (complete) Delete image for product (admin only)
 - (complete) Add custom order option with value (admin only)
-- (wip) Delete custom order option (admin only)
+- (complete) Delete custom order option (admin only)
 - () Add categories (admin only)
 - () Remove from category (admin only)
 
 Category
 
-- () Add a category (admin only)
+- (complete) Add a category (admin only)
+- (complete) Add hot/featured products section (admin only)
+- () retrieve all categories (all users)
 - () Remove a category (admin only)
 - () Add product to category (admin only)
-- () Add hot/featured products section (admin only)
 
 Courier
 

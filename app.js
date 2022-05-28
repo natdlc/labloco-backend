@@ -14,6 +14,7 @@ const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
 const orderRoutes = require("./routes/orders");
 const discountRoutes = require("./routes/discounts");
+const categoryRoutes = require("./routes/categories");
 
 // env
 const port = process.env.PORT;
@@ -44,6 +45,7 @@ app.use("/users", userRoutes);
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/discounts", discountRoutes);
+app.use("/categories", categoryRoutes);
 
 // *EXTRA* Retrieve product image
 app.get("/products/image/:productId", async (req, res) => {

@@ -79,7 +79,7 @@ routes.put("/archive/:productId", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Delete an option (admin only)
+// *EXTRA* Delete an option (admin only)
 routes.delete("/option/:productId", verify, verifyAdmin, (req, res) => {
 	controller
 		.deleteOption(req.params.productId, req.body.optionId)
