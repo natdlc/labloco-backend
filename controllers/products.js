@@ -105,3 +105,18 @@ module.exports.archiveProduct = (productId) => {
 		})
 		.catch((err) => err.message);
 };
+
+// Delete an option (admin only)
+module.exports.deleteOption = (productId, optionId) => {
+	return Product.findByIdAndUpdate(productId, {
+		$pull: {
+			options: {
+				_id: optionId,
+			},
+		},
+	})
+		.then(() => {
+			return { message: "Option deleted successfully" };
+		})
+		.catch((err) => err.message);
+};

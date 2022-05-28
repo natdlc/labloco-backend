@@ -48,7 +48,7 @@ Products
 - (complete) Retrieve image for product
 - (complete) Delete image for product (admin only)
 - (complete) Add custom order option with value (admin only)
-- () Delete custom order option (admin only)
+- (wip) Delete custom order option (admin only)
 - () Add categories (admin only)
 - () Remove from category (admin only)
 
