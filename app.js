@@ -4,6 +4,11 @@ const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const auth = require("./auth");
+const { verify, verifyAdmin } = auth;
+
+const Product = require("./models/Product");
+
 // routes dependencies
 const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
@@ -14,6 +19,7 @@ const discountRoutes = require("./routes/discounts");
 const port = process.env.PORT;
 const acct = process.env.DBCRED;
 
+// for image handling
 let gfs, gridfsBucket;
 
 // server
@@ -33,7 +39,6 @@ conn.once("open", async () => {
 	console.log(`--> Connected to MongoDB`);
 });
 
-
 // routes
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
@@ -41,26 +46,51 @@ app.use("/orders", orderRoutes);
 app.use("/discounts", discountRoutes);
 
 // *EXTRA* Retrieve product image
-app.get("/products/image/:filename", async (req, res) => {
+app.get("/products/image/:productId", async (req, res) => {
 	try {
-    const file = await gfs.files.findOne({ filename: req.params.filename });
+		const filename = await Product.findById(req.params.productId)
+			.then((product) => {
+				return product.image[0].filename;
+			})
+			.catch((err) => res.send(err.message));
+		const file = await gfs.files.findOne({ filename });
 		const readStream = gridfsBucket.openDownloadStream(file._id);
 		readStream.pipe(res);
-  } catch (error) {
-    console.log(error);
+	} catch (error) {
 		res.send("not found");
 	}
 });
 
 // *EXTRA* Delete product image (admin only)
-app.delete("/products/image/:filename", async (req, res) => {
-	try {
-		await gfs.files.deleteOne({ filename: req.params.filename });
-		res.send("success");
-	} catch (error) {
-		res.send("An error occured.");
+app.delete(
+	"/products/image/:productId",
+	verify,
+	verifyAdmin,
+	async (req, res) => {
+		try {
+			const image = await Product.findById(req.params.productId)
+				.then(async (product) => {
+					await Product.findByIdAndUpdate(req.params.productId, {
+						$pull: {
+							image: {
+								imageId: product.image[0].imageId,
+							},
+						},
+					})
+						.then()
+						.catch((err) => res.send(err.message));
+					return product.image[0];
+				})
+				.catch((err) => res.send(err.message));
+
+			await gfs.files.deleteOne({ filename: image.filename });
+
+			res.send("success");
+		} catch (error) {
+			res.send("An error occured.");
+		}
 	}
-});
+);
 
 // gateway res
 app.get("/", (req, res) => res.send("Welcome to LabLoco"));

@@ -16,14 +16,27 @@ routes.post("/new", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// *EXTRA* Create image for product (admin only)
-routes.post("/image/upload/:productId", upload.single("file"), async (req, res) => {
-	if (req.file === undefined) return res.send("you must select a file.");
+// *EXTRA* Add image for product (admin only)
+routes.post(
+	"/image/:productId",
+	verify,
+	verifyAdmin,
+	upload.single("file"),
+	async (req, res) => {
+		if (req.file === undefined) return res.send("you must select a file.");
+		return controller
+			.uploadImage(req.params.productId, req.file)
+			.then((result) => res.send(result))
+			.catch((err) => res.send(err.message));
+	}
+);
 
+// *EXTRA Add custom order option (admin only)
+routes.post("/option/:productId", verify, verifyAdmin, (req, res) => {
 	controller
-
-	const imgUrl = `http://localhost:4000/file/${req.file.filename}`;
-	return res.send(imgUrl);
+		.addOption(req.params.productId, req.body)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
 });
 
 // Retrieve all active products

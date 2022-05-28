@@ -24,6 +24,43 @@ module.exports.createProduct = async (productInfo) => {
 	}
 };
 
+// *EXTRA* Add image for product (Admin only)
+module.exports.uploadImage = (productId, image) => {
+	return Product.findById(productId)
+		.then((product) => {
+			let newImage = {
+				imageId: image.id,
+				filename: image.filename,
+			};
+			product.image.push(newImage);
+			return product
+				.save()
+				.then((result) => {
+					return { message: "Image updated" };
+				})
+				.catch((err) => err.message);
+		})
+		.catch((err) => err.message);
+};
+
+// *EXTRA* Add custom order option (Admin only)
+module.exports.addOption = (productId, optionInfo) => {
+	return Product.findById(productId)
+		.then((product) => {
+			let newOption = {
+				label: optionInfo.label,
+				value: optionInfo.value,
+			};
+			product.options.push(newOption);
+			return product
+				.save()
+				.then((result) => result)
+				.catch((err) => err.message);
+		})
+		.then((result) => result)
+		.catch((err) => err.message);
+};
+
 // Retrieve all active products
 module.exports.getActiveProducts = () => {
 	return Product.find({ isActive: true })

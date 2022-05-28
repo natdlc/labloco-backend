@@ -29,9 +29,13 @@ const productSchema = new mongoose.Schema({
 		{
 			imageId: {
 				type: String,
-				required: [true, "Product image ID is required"]
-			}
-		}
+				required: [true, "Product image ID is required"],
+			},
+			filename: {
+				type: String,
+				required: [true, "Product image name is required"],
+			},
+		},
 	],
 	categories: [
 		{

@@ -44,14 +44,20 @@ Products
 - (complete) No duplicate product (via name)
 - (complete) Retrieve all products (admin only)
 - (complete) Retrieve single product (active only)
-- () Create custom order options with values (admin only)
-- () Create categories (admin only)
+- (complete) Create image for product (admin only)
+- (complete) Retrieve image for product
+- (complete) Delete image for product (admin only)
+- (complete) Add custom order option with value (admin only)
+- () Delete custom order option (admin only)
+- () Add categories (admin only)
+- () Remove from category (admin only)
 
 Category
 
-- () Create a product category (admin only)
-- () Create products (admin only)
-- () Create hot/featured products section (admin only)
+- () Add a category (admin only)
+- () Remove a category (admin only)
+- () Add product to category (admin only)
+- () Add hot/featured products section (admin only)
 
 Courier
 
@@ -60,7 +66,7 @@ Courier
 
 Orders
 
-- (complete) Schema update: comments
+- (complete) Schema update: comments(optional)
 - (complete) Can only order active products
 - (complete) Orders catch cart products
 - (complete) User's cart clears when order is processed
