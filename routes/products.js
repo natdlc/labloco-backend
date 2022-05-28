@@ -1,6 +1,7 @@
 const express = require("express");
 const controller = require("../controllers/products");
 const auth = require("../auth");
+const upload = require("../middleware/upload");
 
 const routes = express.Router();
 
@@ -13,6 +14,16 @@ routes.post("/new", verify, verifyAdmin, (req, res) => {
 		.createProduct(productInfo)
 		.then((product) => res.send(product))
 		.catch((err) => res.send(err.message));
+});
+
+// *EXTRA* Create image for product (admin only)
+routes.post("/image/upload/:productId", upload.single("file"), async (req, res) => {
+	if (req.file === undefined) return res.send("you must select a file.");
+
+	controller
+
+	const imgUrl = `http://localhost:4000/file/${req.file.filename}`;
+	return res.send(imgUrl);
 });
 
 // Retrieve all active products

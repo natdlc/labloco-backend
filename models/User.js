@@ -11,11 +11,11 @@ const userSchema = new mongoose.Schema({
 	},
 	firstName: {
 		type: String,
-		require: [true, "First name is required"]
+		default: "",
 	},
 	lastName: {
 		type: String,
-		require: [true, "Last name is required"]
+		default: "",
 	},
 	address: {
 		type: String,
@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
 	isAdmin: {
 		type: Boolean,
 		default: false,
+	},
+	registeredOn: {
+		type: Date,
+		default: new Date(),
 	},
 	cart: [
 		{
