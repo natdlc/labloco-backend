@@ -29,6 +29,15 @@ module.exports.getAllCategories = () => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Edit category name (admin only)
+module.exports.editCategory = (categoryId, newName) => {
+	return Category.findByIdAndUpdate(categoryId, { name: newName })
+		.then(() => {
+			return { message: "Category name updated" };
+		})
+		.catch((err) => err.message);
+};
+
 // *EXTRA* Archive a category (admin only)
 module.exports.archiveCategory = (categoryId) => {
 	return Category.findByIdAndUpdate(categoryId, { isActive: false })

@@ -49,7 +49,7 @@ Products
 - (complete) Delete image for product (admin only)
 - (complete) Add custom order option with value (admin only)
 - (complete) Delete custom order option (admin only)
-- () Add categories (admin only)
+- () Add categories to product (admin only)
 - () Remove from category (admin only)
 
 Category
@@ -58,7 +58,7 @@ Category
 - (complete) Add hot/featured products section (admin only)
 - (complete) retrieve all active categories (all users)
 - (complete) Retrieve all categories (admin only)
-- () Edit category name
+- (complete) Edit category name (admin only)
 - (complete) Archive a category (admin only)
 - (complete) Remove a category (admin only)
 - () Add product to category (admin only)

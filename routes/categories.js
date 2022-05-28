@@ -31,7 +31,12 @@ routes.get("/all", verify, verifyAdmin, (req, res) => {
 });
 
 // *EXTRA* Edit category name (admin only)
-routes.put("/edit/:categoryId", verify, verifyAdmin, (req, res) => {});
+routes.put("/edit/:categoryId", verify, verifyAdmin, (req, res) => {
+	controller
+		.editCategory(req.params.categoryId, req.body.newName)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
 
 // *EXTRA* Archive a category (admin only)
 routes.put("/archive/:categoryId", verify, verifyAdmin, (req, res) => {
