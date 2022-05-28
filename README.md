@@ -56,7 +56,7 @@ Category
 
 - (complete) Add a category (admin only)
 - (complete) Add hot/featured products section (admin only)
-- () retrieve all categories (all users)
+- (wip) retrieve all categories (all users)
 - () Remove a category (admin only)
 - () Add product to category (admin only)
 
