@@ -126,6 +126,29 @@ module.exports.getUserOrders = (userId) => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Change pasword
+module.exports.changePassword = (userId, userInfo) => {
+	let currentPassword = userInfo.currentPassword;
+	let newPassword = userInfo.newPassword;
+
+	return User.findById(userId)
+		.then((user) => {
+			const pwValid = bcrypt.compareSync(currentPassword, user.password);
+			if (pwValid) {
+				user.password = bcrypt.hashSync(newPassword, salt);
+				return user
+					.save()
+					.then(() => {
+						return { message: "Password updated" };
+					})
+					.catch((err) => err.message);
+			} else {
+				return { message: "Update failed, current password is wrong" };
+			}
+		})
+		.catch((err) => err.message);
+};
+
 // *STRETCH* Set user as admin (Admin only)
 module.exports.setAdmin = (userId) => {
 	return User.findByIdAndUpdate(userId, { isAdmin: true })

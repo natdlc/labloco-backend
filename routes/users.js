@@ -75,4 +75,12 @@ routes.put("/:userId/admin", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// Change password (user only)
+routes.put("/password/", verify, (req, res) => {
+	controller
+		.changePassword(req.user.id, req.body)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 module.exports = routes;
