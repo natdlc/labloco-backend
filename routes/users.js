@@ -66,7 +66,7 @@ routes.get("/orders", verify, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Update user as admin
+// *STRETCH* Update user as admin
 routes.put("/:userId/admin", verify, verifyAdmin, (req, res) => {
 	let userId = req.params.userId;
 	controller
@@ -75,7 +75,7 @@ routes.put("/:userId/admin", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
-// Change password (user only)
+// *EXTRA* Change password (user only)
 routes.put("/password/", verify, (req, res) => {
 	controller
 		.changePassword(req.user.id, req.body)

@@ -126,6 +126,15 @@ module.exports.getUserOrders = (userId) => {
 		.catch((err) => err.message);
 };
 
+// *STRETCH* Set user as admin (Admin only)
+module.exports.setAdmin = (userId) => {
+	return User.findByIdAndUpdate(userId, { isAdmin: true })
+		.then(() => {
+			return { message: "SUCCESS: User updated to admin" };
+		})
+		.catch((err) => err.message);
+};
+
 // *EXTRA* Change pasword
 module.exports.changePassword = (userId, userInfo) => {
 	let currentPassword = userInfo.currentPassword;
@@ -145,15 +154,6 @@ module.exports.changePassword = (userId, userInfo) => {
 			} else {
 				return { message: "Update failed, current password is wrong" };
 			}
-		})
-		.catch((err) => err.message);
-};
-
-// *STRETCH* Set user as admin (Admin only)
-module.exports.setAdmin = (userId) => {
-	return User.findByIdAndUpdate(userId, { isAdmin: true })
-		.then(() => {
-			return { message: "SUCCESS: User updated to admin" };
 		})
 		.catch((err) => err.message);
 };

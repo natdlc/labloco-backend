@@ -15,4 +15,4 @@ const newsletterEmailSchema = new mongoose.Schema({
 	},
 });
 
-module.exports = new mongoose.model("NewsletterEmail");
+module.exports = new mongoose.model("NewsletterEmail", newsletterEmailSchema);

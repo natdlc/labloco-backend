@@ -35,7 +35,7 @@ Users
 
 NewsletterEmail
 
-- () User/non-users add email to newsletter
+- (wip) User/non-users add email to newsletter
 - () User/non-users unsubscribe from newsletter
 
 Products
