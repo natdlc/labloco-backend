@@ -68,14 +68,28 @@ module.exports.addCategory = async (productId, categoryId) => {
 		const category = await Category.findById(categoryId);
 		if (category.isActive) {
 			product.categories.push({ categoryId });
-			return product
+			const productUpdated = await product
 				.save()
-				.then((result) => {
-					return { message: "Category added" };
-				})
+				.then()
 				.catch((err) => err.message);
+
+			if (productUpdated) {
+				return await Category.findById(categoryId)
+					.then((category) => {
+						category.products.push({ productId });
+						return category
+							.save()
+							.then(() => {
+								return { message: "Category added to product" };
+							})
+							.catch((err) => err.message);
+					})
+					.catch((err) => err.message);
+			} else {
+				return { message: "Error with product" };
+			}
 		} else {
-			return { message: "category is inactive" };
+			return { message: "Category is inactive" };
 		}
 	});
 };
@@ -149,8 +163,18 @@ module.exports.deleteCategory = async (productId, categoryId) => {
 			},
 		},
 	})
-		.then(() => {
-			return { message: "Category deleted successfully" };
+		.then(async () => {
+			return await Category.findByIdAndUpdate(categoryId, {
+				$pull: {
+					products: {
+						productId,
+					},
+				},
+			})
+				.then(() => {
+					return { message: "Category deleted successfully" };
+				})
+				.catch((err) => err.message);
 		})
 		.catch((err) => err.message);
 };

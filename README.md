@@ -62,7 +62,8 @@ Category
 - (complete) Edit category name (admin only)
 - (complete) Archive a category (admin only)
 - (complete) Remove a category (admin only)
-- () Add product to category (admin only)
+- (complete) Add product to category (admin only)
+- (complete) Can't delete category linked to products (admin only)
 
 Courier
 

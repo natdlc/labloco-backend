@@ -48,10 +48,23 @@ module.exports.archiveCategory = (categoryId) => {
 };
 
 // *EXTRA* Delete a category (admin only)
-module.exports.deleteCategory = (categoryId) => {
-	return Category.findByIdAndRemove(categoryId)
-		.then(() => {
-			return { message: "Category removed" };
+module.exports.deleteCategory = async (categoryId) => {
+	let productExists = await Category.findById(categoryId)
+		.then((category) => {
+			if (category.products.length) {
+				return true;
+			} else {
+				return false;
+			}
 		})
 		.catch((err) => err.message);
+	if (productExists) {
+		return { message: "Can't delete category linked to products" };
+	} else {
+		return Category.findByIdAndRemove(categoryId)
+			.then(() => {
+				return { message: "Category removed" };
+			})
+			.catch((err) => err.message);
+	}
 };
