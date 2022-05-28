@@ -14,3 +14,26 @@ module.exports.createCategory = (categoryName) => {
 		})
 		.catch((err) => err.message);
 };
+
+// *EXTRA* Retrieve active categories
+module.exports.getActiveCategories = () => {
+	return Category.find({ isActive: true })
+		.then((result) => result)
+		.catch((err) => err.message);
+};
+
+// *EXTRA* Retrieve all categories (admin only)
+module.exports.getAllCategories = () => {
+	return Category.find()
+		.then((result) => result)
+		.catch((err) => err.message);
+};
+
+// *EXTRA* Archive a category (admin only)
+module.exports.archiveCategory = (categoryId) => {
+	return Category.findByIdAndUpdate(categoryId, { isActive: false })
+		.then(() => {
+			return { message: "Category archived" };
+		})
+		.catch((err) => err.message);
+};
