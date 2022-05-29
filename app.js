@@ -16,6 +16,7 @@ const orderRoutes = require("./routes/orders");
 const discountRoutes = require("./routes/discounts");
 const categoryRoutes = require("./routes/categories");
 const newsletterRoutes = require("./routes/newsletters");
+const courierRoutes = require("./routes/couriers");
 
 // env
 const port = process.env.PORT;
@@ -48,6 +49,7 @@ app.use("/orders", orderRoutes);
 app.use("/discounts", discountRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/newsletters", newsletterRoutes);
+app.use("/couriers", courierRoutes);
 
 // *EXTRA* Retrieve product image
 app.get("/products/image/:productId", async (req, res) => {

@@ -9,11 +9,11 @@ const courierSchema = new mongoose.Schema({
 		type: Number,
 		required: [true, "Shipping price is required"],
 	},
-	timeFrame: {
+	eta: {
 		type: String,
-		required: [true, "Delivery timefarme is required"],
+		required: [true, "Shipping ETA is required"],
 	},
-	isACtive: {
+	isActive: {
 		type: Boolean,
 		default: true,
 	},

@@ -69,18 +69,20 @@ Category
 
 Courier
 
-- () Create courier options (admin only)
-- () Deactivate couriers (admin only)
+- (complete) Create courier (admin only)
+- () Retrieve couriers (admin only)
+- () Deactivate courier (admin only)
 
 Orders
 
-- (complete) Schema update: comments(optional)
+- (complete) Schema update: comments(optional), courier
 - (complete) Can only order active products
 - (complete) Orders catch cart products
 - (complete) User's cart clears when order is processed
 - (complete) Discounts apply to orders (users only)
 - (complete) Calculate percentage-based discounts
 - (complete) Calculate fixed-amount-based discounts
+- () Attach courier to order
 
 Discounts
 

@@ -17,6 +17,14 @@ const orderSchema = new mongoose.Schema({
 		type: String,
 		default: "",
 	},
+	courier: [
+		{
+			courierId: {
+				type: String,
+				required: [true, "A courier is required"]
+			}
+		}
+	],
 	discount: [
 		{
 			discountId: {
