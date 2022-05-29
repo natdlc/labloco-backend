@@ -33,10 +33,12 @@ Users
 - (complete) Retrieve authenticated user profile (authed)
 - (complete) Change password (user only)
 
-NewsletterEmail
+Newsletter
 
-- (complete) User/non-users add email to newsletter
-- () User/non-users unsubscribe from newsletter
+- (complete) Subscribe to newsletter
+- (complete) No duplicate emails
+- (complete) Retrieve newsletter emails (admin only)
+- (complete) Unsubscribe from newsletter
 
 Products
 
