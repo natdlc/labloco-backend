@@ -14,4 +14,12 @@ routes.post("/", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Get couriers (admin only)
+routes.get("/", verify, verifyAdmin, (req, res) => {
+	controller
+		.getCouriers()
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 module.exports = routes;

@@ -12,3 +12,10 @@ module.exports.addCourier = (input) => {
 		})
 		.catch((err) => err.message);
 };
+
+// *EXTRA* Get couriers (admin only)
+module.exports.getCouriers = () => {
+	return Courier.find({})
+		.then((couriers) => couriers)
+		.catch((err) => err.message);
+};

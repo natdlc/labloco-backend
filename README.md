@@ -70,7 +70,7 @@ Category
 Courier
 
 - (complete) Create courier (admin only)
-- () Retrieve couriers (admin only)
+- (complete) Retrieve couriers (admin only)
 - () Deactivate courier (admin only)
 
 Orders
