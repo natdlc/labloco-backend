@@ -19,3 +19,12 @@ module.exports.getCouriers = () => {
 		.then((couriers) => couriers)
 		.catch((err) => err.message);
 };
+
+// *EXTRA* Deactivate courier (admin only)
+module.exports.deactivateCourier = (courierId) => {
+	return Courier.findByIdAndUpdate(courierId, { isActive: false })
+		.then(() => {
+			return { message: "Courier deactivated" };
+		})
+		.catch((err) => err.message);
+};

@@ -1,7 +1,17 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Discount = require("../models/Discount");
+const Courier = require("../models/Courier");
 const User = require("../models/User");
+
+const getCourier = async (courierId) => {
+	return await Courier.findById(courierId).then((courier) => {
+		return {
+			courierId: courier._id,
+			price: courier.price,
+		};
+	});
+};
 
 const clearCart = (userId, cart) => {
 	return User.findByIdAndUpdate(userId, { cart: [] })
@@ -35,7 +45,14 @@ const calculateTotal = async (total, cart) => {
 	return total;
 };
 
-const updateDatabase = async (cart, newOrder, res, discount, userId) => {
+const updateDatabase = async (
+	cart,
+	newOrder,
+	res,
+	discount,
+	userId,
+	courierId
+) => {
 	cart.forEach((product) => newOrder.products.push(product));
 	if (discount) {
 		let newDiscount = {
@@ -45,6 +62,8 @@ const updateDatabase = async (cart, newOrder, res, discount, userId) => {
 		};
 		newOrder.discount.push(newDiscount);
 	}
+
+	newOrder.courier.push({courierId});
 
 	await clearCart(userId, cart);
 
@@ -90,6 +109,8 @@ module.exports.checkout = async (req, res) => {
 		// if all products valid
 		if (totalAmount) {
 			// if discount id is provided
+			const courier = await getCourier(req.body.courierId);
+			totalAmount += courier.price;
 			if (discountId) {
 				let discount = await getDiscount(discountId, res);
 				// if discount is valid
@@ -107,10 +128,24 @@ module.exports.checkout = async (req, res) => {
 					});
 				}
 				let newOrder = createOrder(req, totalAmount);
-				return updateDatabase(cart, newOrder, res, discount, req.user.id);
+				return updateDatabase(
+					cart,
+					newOrder,
+					res,
+					discount,
+					req.user.id,
+					courier.courierId
+				);
 			} else {
 				let newOrder = createOrder(req, totalAmount);
-				return updateDatabase(cart, newOrder, res, discountId, req.user.id);
+				return updateDatabase(
+					cart,
+					newOrder,
+					res,
+					discountId,
+					req.user.id,
+					courier.courierId
+				);
 			}
 		} else {
 			return Promise.reject({ message: "Can't process order" })

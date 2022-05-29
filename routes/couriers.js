@@ -22,4 +22,12 @@ routes.get("/", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Deactivate courier (admin only)
+routes.put("/deactivate/:courierId", verify, verifyAdmin, (req, res) => {
+	controller
+		.deactivateCourier(req.params.courierId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 module.exports = routes;

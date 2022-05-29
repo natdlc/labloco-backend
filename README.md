@@ -71,7 +71,7 @@ Courier
 
 - (complete) Create courier (admin only)
 - (complete) Retrieve couriers (admin only)
-- () Deactivate courier (admin only)
+- (complete) Deactivate courier (admin only)
 
 Orders
 
@@ -82,7 +82,7 @@ Orders
 - (complete) Discounts apply to orders (users only)
 - (complete) Calculate percentage-based discounts
 - (complete) Calculate fixed-amount-based discounts
-- () Attach courier to order
+- (complete) Attach courier to order
 
 Discounts
 
