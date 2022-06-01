@@ -63,7 +63,7 @@ const updateDatabase = async (
 		newOrder.discount.push(newDiscount);
 	}
 
-	newOrder.courier.push({courierId});
+	newOrder.courier.push({ courierId });
 
 	await clearCart(userId, cart);
 
@@ -159,5 +159,13 @@ module.exports.checkout = async (req, res) => {
 module.exports.getAllOrders = async (req, res) => {
 	return Order.find({})
 		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+};
+
+// Update order status (admin only)
+module.exports.updateStatus = async (req, res) => {
+	let newStatus = req.body.newStatus;
+	return Order.findByIdAndUpdate(req.params.orderId, { status: newStatus })
+		.then(() => res.send({ message: "success" }))
 		.catch((err) => res.send(err.message));
 };

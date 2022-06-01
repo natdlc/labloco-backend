@@ -75,7 +75,7 @@ Courier
 
 Orders
 
-- (complete) Schema update: comments(optional), courier
+- (complete) Schema update: comments(optional), courier, status
 - (complete) Can only order active products
 - (complete) Orders catch cart products
 - (complete) User's cart clears when order is processed
@@ -83,11 +83,10 @@ Orders
 - (complete) Calculate percentage-based discounts
 - (complete) Calculate fixed-amount-based discounts
 - (complete) Attach courier to order
+- (complete) Update status
 
 Discounts
 
 - (complete) Create discounts (admin only)
 - (complete) Retrieve discounts (admin only)
 - (complete) Set discount to inactive (admin only)
-
-<!-- test commit for new device -->

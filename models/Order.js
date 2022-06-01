@@ -13,6 +13,10 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date(),
 	},
+	status: {
+		type: String,
+		default: "new",
+	},
 	comments: {
 		type: String,
 		default: "",
