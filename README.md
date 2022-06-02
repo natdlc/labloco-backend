@@ -61,6 +61,8 @@ Category
 - (complete) Add hot/featured products section (admin only)
 - (complete) retrieve all active categories (all users)
 - (complete) Retrieve all categories (admin only)
+- (complete) Retrieve active products in specific category
+- (complete) Retrieve all products in specific category (admin only)
 - (complete) Edit category name (admin only)
 - (complete) Archive a category (admin only)
 - (complete) Remove a category (admin only)
