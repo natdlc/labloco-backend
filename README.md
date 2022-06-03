@@ -31,6 +31,7 @@ Users
 - (complete) Schema update: registeredOn, firstName, lastName, address, mobileNum
 - (complete) No duplicate users (via email)
 - (complete) Retrieve authenticated user profile (authed)
+- () Retrieve authenticated user's specific oder
 - (complete) Change password (user only)
 
 Newsletter
