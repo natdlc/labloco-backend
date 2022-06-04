@@ -32,6 +32,7 @@ Users
 - (complete) No duplicate users (via email)
 - (complete) Retrieve authenticated user profile (authed)
 - (complete) Change password (user only)
+- (w) Retrieve all users (admin only)
 
 Newsletter
 
@@ -89,5 +90,3 @@ Discounts
 - (complete) Create discounts (admin only)
 - (complete) Retrieve discounts (admin only)
 - (complete) Set discount to inactive (admin only)
-
-<!-- test commit for new device -->

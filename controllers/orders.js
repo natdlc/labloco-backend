@@ -76,6 +76,8 @@ const updateDatabase = async (
 const createOrder = (req, totalAmount) => {
 	let newOrderDetails = {
 		userId: req.user.id,
+		paymentMethod: req.body.paymentMethod,
+		comments: req.body.comments,
 		totalAmount,
 	};
 
