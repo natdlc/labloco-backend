@@ -1,4 +1,5 @@
 const Category = require("../models/Category");
+const Product = require("../models/Product");
 
 // *EXTRA* Create a category (admin only)
 module.exports.createCategory = (categoryName) => {
@@ -27,6 +28,30 @@ module.exports.getAllCategories = () => {
 	return Category.find()
 		.then((result) => result)
 		.catch((err) => err.message);
+};
+
+// *EXTRA* Retrieve active products in specific category
+module.exports.getActiveCategoryProducts = (categoryId) => {
+	return Category.findById(categoryId)
+		.then(() => {
+			return Product.find({ isActive: true, 'categories.categoryId': categoryId })
+				.then((result) => result)
+				.catch((err) => err.message);
+		})
+		.catch((err) => err.message);
+};
+
+// *EXTRA* Retrieve all products in specific category (admin only)
+module.exports.getAllCategoryProducts = (categoryId) => {
+		return Category.findById(categoryId)
+			.then(() => {
+				return Product.find({
+					"categories.categoryId": categoryId,
+				})
+					.then((result) => result)
+					.catch((err) => err.message);
+			})
+			.catch((err) => err.message);
 };
 
 // *EXTRA* Edit category name (admin only)

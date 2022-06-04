@@ -30,6 +30,22 @@ routes.get("/all", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Retrieve active products in specific category
+routes.get("/active/:categoryId", (req, res) => {
+	controller
+		.getActiveCategoryProducts(req.params.categoryId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
+// *EXTRA* Retrieve all products in specific category (admin only)
+routes.get("/all/:categoryId", verify, verifyAdmin, (req, res) => {
+	controller
+		.getAllCategoryProducts(req.params.categoryId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 // *EXTRA* Edit category name (admin only)
 routes.put("/edit/:categoryId", verify, verifyAdmin, (req, res) => {
 	controller

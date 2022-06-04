@@ -31,6 +31,7 @@ Users
 - (complete) Schema update: registeredOn, firstName, lastName, address, mobileNum
 - (complete) No duplicate users (via email)
 - (complete) Retrieve authenticated user profile (authed)
+- () Retrieve authenticated user's specific oder
 - (complete) Change password (user only)
 - (w) Retrieve all users (admin only)
 
@@ -62,6 +63,8 @@ Category
 - (complete) Add hot/featured products section (admin only)
 - (complete) retrieve all active categories (all users)
 - (complete) Retrieve all categories (admin only)
+- (complete) Retrieve active products in specific category
+- (complete) Retrieve all products in specific category (admin only)
 - (complete) Edit category name (admin only)
 - (complete) Archive a category (admin only)
 - (complete) Remove a category (admin only)
@@ -76,7 +79,7 @@ Courier
 
 Orders
 
-- (complete) Schema update: comments(optional), courier
+- (complete) Schema update: comments(optional), courier, status
 - (complete) Can only order active products
 - (complete) Orders catch cart products
 - (complete) User's cart clears when order is processed
@@ -84,9 +87,14 @@ Orders
 - (complete) Calculate percentage-based discounts
 - (complete) Calculate fixed-amount-based discounts
 - (complete) Attach courier to order
+- (complete) Update status
 
 Discounts
 
 - (complete) Create discounts (admin only)
 - (complete) Retrieve discounts (admin only)
+<<<<<<< HEAD
 - (complete) Set discount to inactive (admin only)
+=======
+- (complete) Set discount to inactive (admin only)
+>>>>>>> dca55368c0f9b8d8424313051fc108b8f9bf9997
