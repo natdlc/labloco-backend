@@ -76,10 +76,11 @@ routes.get("/all", verify, verifyAdmin, (req, res) => {
 
 // *EXTRA* Retrieve specific user order
 routes.get("/order/:orderId", verify, (req, res) => {
-	controller.getUserOrder(req.user.id, req.params.orderId)
-		.then(result => res.send(result))
-	.catch(err => res.send(err.message))
-})
+  controller
+    .getUserOrder(req.user.id, req.params.orderId)
+    .then((result) => res.send(result))
+    .catch((err) => res.send(err.message));
+});
 
 // *STRETCH* Update user as admin
 routes.put("/:userId/admin", verify, verifyAdmin, (req, res) => {

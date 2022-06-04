@@ -135,14 +135,14 @@ module.exports.getAllUsers = () => {
 
 // *EXTRA* Retrieve specific order of user
 module.exports.getUserOrder = (userId, orderId) => {
-	return Order.findOne({ _id: orderId, userId })
-		.then((result) => {
-			let orderFound = result.status;
-			if (orderFound) {
-				return result;
-			}
-		})
-		.catch((err) => err.message);
+  return Order.findOne({ _id: orderId, userId })
+    .then((result) => {
+      let orderFound = result.status;
+      if (orderFound) {
+        return result;
+      }
+    })
+    .catch((err) => err.message);
 };
 
 // *STRETCH* Set user as admin (Admin only)
