@@ -3,7 +3,7 @@ const Category = require("../models/Category");
 
 // Create Product (Admin only)
 module.exports.createProduct = async (productInfo) => {
-  let { name, description, price } = productInfo;
+  let { name } = productInfo;
 
   let productFound = await Product.findOne({ name })
     .then((product) => product)
@@ -16,7 +16,7 @@ module.exports.createProduct = async (productInfo) => {
       });
     });
   } else {
-    let newProduct = new Product({ name, description, price: price });
+    let newProduct = new Product(productInfo);
 
     return newProduct
       .save()
