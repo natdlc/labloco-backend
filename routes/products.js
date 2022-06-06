@@ -70,6 +70,14 @@ routes.get("/:productId/", (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Retrieve any single product (admin only)
+routes.get("/admin/:productId", verify, verifyAdmin, (req, res) => {
+	controller
+		.getAnyProduct(req.params.productId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 // *EXTRA* Retrieve all products (admin only)
 routes.get("/", verify, verifyAdmin, (req, res) => {
 	controller

@@ -118,6 +118,13 @@ module.exports.getProduct = (productId) => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Retrieve any single product (admin only)
+module.exports.getAnyProduct = (productId) => {
+	return Product.findById(productId)
+		.then((product) => product)
+		.then((err) => err.message);
+};
+
 // *EXTRA* Retrieve all products (admin only)
 module.exports.getAllProducts = () => {
 	return Product.find({})

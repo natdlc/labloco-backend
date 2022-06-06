@@ -48,6 +48,7 @@ Products
 - (complete) No duplicate product (via name)
 - (complete) Retrieve all products (admin only)
 - (complete) Retrieve single product (active only)
+- () Retrieve any single product (admin only)
 - (complete) Create image for product (admin only)
 - (complete) Retrieve image for product
 - (complete) Delete image for product (admin only)
@@ -93,8 +94,4 @@ Discounts
 
 - (complete) Create discounts (admin only)
 - (complete) Retrieve discounts (admin only)
-<<<<<<< HEAD
 - (complete) Set discount to inactive (admin only)
-=======
-- (complete) Set discount to inactive (admin only)
->>>>>>> dca55368c0f9b8d8424313051fc108b8f9bf9997
