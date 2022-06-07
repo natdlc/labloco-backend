@@ -31,9 +31,9 @@ Users
 - (complete) Schema update: registeredOn, firstName, lastName, address, mobileNum
 - (complete) No duplicate users (via email)
 - (complete) Retrieve authenticated user profile (authed)
-- () Retrieve authenticated user's specific oder
+- (complete) Retrieve authenticated user's specific oder
 - (complete) Change password (user only)
-- (w) Retrieve all users (admin only)
+- (complete) Retrieve all users (admin only)
 
 Newsletter
 
@@ -48,7 +48,7 @@ Products
 - (complete) No duplicate product (via name)
 - (complete) Retrieve all products (admin only)
 - (complete) Retrieve single product (active only)
-- () Retrieve any single product (admin only)
+- (complete) Retrieve any single product (admin only)
 - (complete) Create image for product (admin only)
 - (complete) Retrieve image for product
 - (complete) Delete image for product (admin only)
