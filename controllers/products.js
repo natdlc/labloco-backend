@@ -57,10 +57,14 @@ module.exports.addOption = (productId, optionInfo) => {
 			product.options.push(newOption);
 			return product
 				.save()
-				.then((result) => result)
+				.then(() => {
+					return { message: "success" };
+				})
 				.catch((err) => err.message);
 		})
-		.then((result) => result)
+		.then(() => {
+			return { message: "success" };
+		})
 		.catch((err) => err.message);
 };
 
