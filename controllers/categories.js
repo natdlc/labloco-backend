@@ -70,10 +70,16 @@ module.exports.getAllCategoryProducts = (categoryId) => {
 // *EXTRA* Edit category name (admin only)
 module.exports.editCategory = async (categoryId, newName) => {
 	const categoryFound = await Category.findOne({ name: newName })
-		.then(() => true)
-		.catch(() => false);
+		.then((categoryExists) => {
+			if (categoryExists) return true;
+			return false;
+		})
+		.catch((err) => {
+			throw err;
+		});
 
 	if (categoryFound) return Promise.reject({ message: "Category exists" });
+
 	return Category.findByIdAndUpdate(categoryId, { name: newName })
 		.then(() => {
 			return { message: "Category name updated" };
