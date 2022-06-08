@@ -52,7 +52,8 @@ module.exports.addOption = (productId, optionInfo) => {
 	return Product.findById(productId)
 		.then((product) => {
 			const optionExists = product.options.find(
-				(option) => option.value === optionInfo.value
+				(option) =>
+					option.label === optionInfo.label && option.value === optionInfo.value
 			);
 
 			if (optionExists)
@@ -172,7 +173,6 @@ module.exports.deleteOption = (productId, optionInfo) => {
 			if (optionFound) {
 				const optionsArr = product.options;
 				optionsArr.splice(optionsArr.indexOf(optionFound), 1);
-				console.log(product.options);
 				return product.save().then(() => {
 					return { message: "success" };
 				});
