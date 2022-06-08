@@ -2,12 +2,17 @@ const Category = require("../models/Category");
 const Product = require("../models/Product");
 
 // *EXTRA* Create a category (admin only)
-module.exports.createCategory = (categoryName) => {
-	const categoryExists = Category.findOne({ name: categoryName })
-		.then(() => true)
-		.catch(() => false);
-	if (categoryExists) return { message: "error: product exists" };
-	
+module.exports.createCategory = async (categoryName) => {
+	const categoryExists = await Category.findOne({ name: categoryName }).then(
+		(result) => {
+			if (result) return true;
+			return false;
+		}
+	);
+
+	if (categoryExists)
+		return Promise.reject({ message: "error: product exists" });
+
 	let newCategoryDetails = {
 		name: categoryName,
 	};
