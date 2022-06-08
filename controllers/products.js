@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const Category = require("../models/Category");
+const { options } = require("../routes/products");
 
 // Create Product (Admin only)
 module.exports.createProduct = async (productInfo) => {
@@ -160,16 +161,24 @@ module.exports.archiveProduct = (productId) => {
 };
 
 // *EXTRA* Delete an option (admin only)
-module.exports.deleteOption = (productId, optionId) => {
-	return Product.findByIdAndUpdate(productId, {
-		$pull: {
-			options: {
-				_id: optionId,
-			},
-		},
-	})
-		.then(() => {
-			return { message: "Option deleted successfully" };
+module.exports.deleteOption = (productId, optionInfo) => {
+	return Product.findById(productId)
+		.then((product) => {
+			const optionFound = product.options.find(
+				(option) =>
+					option.label === optionInfo.label && option.value === optionInfo.value
+			);
+
+			if (optionFound) {
+				const optionsArr = product.options;
+				optionsArr.splice(optionsArr.indexOf(optionFound), 1);
+				console.log(product.options);
+				return product.save().then(() => {
+					return { message: "success" };
+				});
+			} else {
+				throw { message: "error: no option value exists in option label" };
+			}
 		})
 		.catch((err) => err.message);
 };
