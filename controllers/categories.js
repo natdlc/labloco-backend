@@ -3,6 +3,11 @@ const Product = require("../models/Product");
 
 // *EXTRA* Create a category (admin only)
 module.exports.createCategory = (categoryName) => {
+	const categoryExists = Category.findOne({ name: categoryName })
+		.then(() => true)
+		.catch(() => false);
+	if (categoryExists) return { message: "error: product exists" };
+	
 	let newCategoryDetails = {
 		name: categoryName,
 	};
@@ -34,7 +39,10 @@ module.exports.getAllCategories = () => {
 module.exports.getActiveCategoryProducts = (categoryId) => {
 	return Category.findById(categoryId)
 		.then(() => {
-			return Product.find({ isActive: true, 'categories.categoryId': categoryId })
+			return Product.find({
+				isActive: true,
+				"categories.categoryId": categoryId,
+			})
 				.then((result) => result)
 				.catch((err) => err.message);
 		})
@@ -43,15 +51,15 @@ module.exports.getActiveCategoryProducts = (categoryId) => {
 
 // *EXTRA* Retrieve all products in specific category (admin only)
 module.exports.getAllCategoryProducts = (categoryId) => {
-		return Category.findById(categoryId)
-			.then(() => {
-				return Product.find({
-					"categories.categoryId": categoryId,
-				})
-					.then((result) => result)
-					.catch((err) => err.message);
+	return Category.findById(categoryId)
+		.then(() => {
+			return Product.find({
+				"categories.categoryId": categoryId,
 			})
-			.catch((err) => err.message);
+				.then((result) => result)
+				.catch((err) => err.message);
+		})
+		.catch((err) => err.message);
 };
 
 // *EXTRA* Edit category name (admin only)
