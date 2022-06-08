@@ -50,21 +50,25 @@ module.exports.uploadImage = (productId, image) => {
 module.exports.addOption = (productId, optionInfo) => {
 	return Product.findById(productId)
 		.then((product) => {
-			let newOption = {
-				label: optionInfo.label,
-				value: optionInfo.value,
-			};
+			const optionExists = product.options.find(
+				(option) => option.value === optionInfo.value
+			);
 
-			product.options.push(newOption);
-			return product
-				.save()
-				.then(() => {
-					return { message: "success" };
-				})
-				.catch((err) => err.message);
-		})
-		.then(() => {
-			return { message: "success" };
+			if (optionExists)
+				throw { message: "error: duplicate value in the same option label" };
+			else {
+				let newOption = {
+					label: optionInfo.label,
+					value: optionInfo.value,
+				};
+				product.options.push(newOption);
+				return product
+					.save()
+					.then(() => {
+						return { message: "success" };
+					})
+					.catch((err) => err.message);
+			}
 		})
 		.catch((err) => err.message);
 };
