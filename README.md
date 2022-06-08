@@ -69,6 +69,7 @@ Category
 - (complete) Retrieve active products in specific category
 - (complete) Retrieve all products in specific category (admin only)
 - (complete) Edit category name (admin only)
+- (complete) Can't edit category if name exists (admin only)
 - (complete) Archive a category (admin only)
 - (complete) Remove a category (admin only)
 - (complete) Add product to category (admin only)

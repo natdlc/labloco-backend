@@ -68,7 +68,12 @@ module.exports.getAllCategoryProducts = (categoryId) => {
 };
 
 // *EXTRA* Edit category name (admin only)
-module.exports.editCategory = (categoryId, newName) => {
+module.exports.editCategory = async (categoryId, newName) => {
+	const categoryFound = await Category.findOne({ name: newName })
+		.then(() => true)
+		.catch(() => false);
+
+	if (categoryFound) return Promise.reject({ message: "Category exists" });
 	return Category.findByIdAndUpdate(categoryId, { name: newName })
 		.then(() => {
 			return { message: "Category name updated" };
