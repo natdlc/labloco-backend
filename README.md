@@ -53,6 +53,7 @@ Products
 - (complete) Retrieve image for product
 - (complete) Delete image for product (admin only)
 - (complete) Add custom order option with value (admin only)
+- (complete) Can't add duplicate option value in same option label (admin only)
 - (complete) Delete custom order option (admin only)
 - (complete) Add categories to product (admin only)
 - (complete) Add only active categories to product (admin only)
