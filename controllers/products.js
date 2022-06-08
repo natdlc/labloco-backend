@@ -54,6 +54,7 @@ module.exports.addOption = (productId, optionInfo) => {
 				label: optionInfo.label,
 				value: optionInfo.value,
 			};
+
 			product.options.push(newOption);
 			return product
 				.save()
@@ -126,7 +127,7 @@ module.exports.getProduct = (productId) => {
 module.exports.getAnyProduct = (productId) => {
 	return Product.findById(productId)
 		.then((product) => product)
-		.then((err) => err.message);
+		.catch((err) => err.message);
 };
 
 // *EXTRA* Retrieve all products (admin only)
