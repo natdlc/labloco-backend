@@ -11,7 +11,7 @@ module.exports.createCategory = (categoryName) => {
 	return newCategory
 		.save()
 		.then(() => {
-			return { message: "Category added successfully" };
+			return { message: "success" };
 		})
 		.catch((err) => err.message);
 };
