@@ -71,6 +71,7 @@ Category
 - (complete) Edit category name (admin only)
 - (complete) Can't edit category if name exists (admin only)
 - (complete) Archive a category (admin only)
+- (complete) Unarchive a category (admin only)
 - (complete) Remove a category (admin only)
 - (complete) Add product to category (admin only)
 - (complete) Can't delete category linked to products (admin only)

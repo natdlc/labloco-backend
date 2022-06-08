@@ -62,6 +62,14 @@ routes.put("/archive/:categoryId", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Archive a category (admin only)
+routes.put("/unarchive/:categoryId", verify, verifyAdmin, (req, res) => {
+	controller
+		.unarchiveCategory(req.params.categoryId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 // *EXTRA* Delete a category (admin only)
 routes.delete("/delete/:categoryId", verify, verifyAdmin, (req, res) => {
 	controller

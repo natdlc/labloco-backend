@@ -96,6 +96,15 @@ module.exports.archiveCategory = (categoryId) => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Unarchive a category (admin only)
+module.exports.unarchiveCategory = (categoryId) => {
+	return Category.findByIdAndUpdate(categoryId, { isActive: true })
+		.then(() => {
+			return { message: "Category unarchived" };
+		})
+		.catch((err) => err.message);
+};
+
 // *EXTRA* Delete a category (admin only)
 module.exports.deleteCategory = async (categoryId) => {
 	let productExists = await Category.findById(categoryId)
