@@ -30,4 +30,12 @@ routes.put("/deactivate/:courierId", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Activate courier (admin only)
+routes.put("/activate/:courierId", verify, verifyAdmin, (req, res) => {
+	controller
+		.activateCourier(req.params.courierId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 module.exports = routes;

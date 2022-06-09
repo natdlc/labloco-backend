@@ -28,3 +28,12 @@ module.exports.deactivateCourier = (courierId) => {
 		})
 		.catch((err) => err.message);
 };
+
+// *EXTRA* Active courier (admin only)
+module.exports.activateCourier = (courierId) => {
+	return Courier.findByIdAndUpdate(courierId, { isActive: true })
+		.then(() => {
+			return { message: "Courier activated" };
+		})
+		.catch((err) => err.message);
+};
