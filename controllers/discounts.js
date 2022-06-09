@@ -20,6 +20,17 @@ module.exports.getDiscounts = () => {
 // Update discount to inactive (admin only)
 module.exports.deactivateDiscount = (discountId) => {
 	return Discount.findByIdAndUpdate(discountId, { isActive: false })
-		.then((result) => {return {message: "SUCCESS: Discount deactivated"}})
+		.then((result) => {
+			return { message: "SUCCESS: Discount deactivated" };
+		})
+		.catch((err) => err.message);
+};
+
+// Update discount to active (admin only)
+module.exports.activateDiscount = (discountId) => {
+	return Discount.findByIdAndUpdate(discountId, { isActive: true })
+		.then((result) => {
+			return { message: "SUCCESS: Discount activated" };
+		})
 		.catch((err) => err.message);
 };

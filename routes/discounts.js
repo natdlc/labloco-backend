@@ -24,7 +24,16 @@ routes.get("/", verify, verifyAdmin, (req, res) => {
 
 // Set discounts to inactive (admin only)
 routes.put("/:discountId/deactivate", verify, verifyAdmin, (req, res) => {
-	controller.deactivateDiscount(req.params.discountId)
+	controller
+		.deactivateDiscount(req.params.discountId)
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
+// Set discounts to inactive (admin only)
+routes.put("/:discountId/activate", verify, verifyAdmin, (req, res) => {
+	controller
+		.activateDiscount(req.params.discountId)
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err.message));
 });

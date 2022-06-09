@@ -100,3 +100,4 @@ Discounts
 - (complete) Create discounts (admin only)
 - (complete) Retrieve discounts (admin only)
 - (complete) Set discount to inactive (admin only)
+- (complete) Set discount to active (admin only)
