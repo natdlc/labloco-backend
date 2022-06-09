@@ -6,7 +6,7 @@ module.exports.createDiscount = (discountInfo) => {
 
 	return newDiscount
 		.save()
-		.then((discount) => discount)
+		.then(() => {return {message:"discount created"}})
 		.catch((err) => err.message);
 };
 
