@@ -81,6 +81,7 @@ Courier
 
 - (complete) Create courier (admin only)
 - (complete) Retrieve couriers (admin only)
+- (complete) Retrieve couriers
 - (complete) Deactivate courier (admin only)
 - (complete) Reactivate courier (admin only)
 

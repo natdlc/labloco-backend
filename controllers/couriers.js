@@ -20,6 +20,13 @@ module.exports.getCouriers = () => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Get couriers
+module.exports.getActiveCouriers = () => {
+	return Courier.find({ isActive: true })
+		.then((couriers) => couriers)
+		.catch((err) => err.message);
+};
+
 // *EXTRA* Deactivate courier (admin only)
 module.exports.deactivateCourier = (courierId) => {
 	return Courier.findByIdAndUpdate(courierId, { isActive: false })

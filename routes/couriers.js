@@ -22,6 +22,14 @@ routes.get("/", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Get couriers
+routes.get("/active", (req, res) => {
+	controller
+		.getActiveCouriers()
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 // *EXTRA* Deactivate courier (admin only)
 routes.put("/deactivate/:courierId", verify, verifyAdmin, (req, res) => {
 	controller
