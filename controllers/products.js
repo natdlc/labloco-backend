@@ -161,6 +161,15 @@ module.exports.archiveProduct = (productId) => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Unarchive Product (Admin only)
+module.exports.unarchiveProduct = (productId) => {
+	return Product.findByIdAndUpdate(productId, { isActive: true })
+		.then(() => {
+			return { message: "Product unarchived" };
+		})
+		.catch((err) => err.message);
+};
+
 // *EXTRA* Delete an option (admin only)
 module.exports.deleteOption = (productId, optionInfo) => {
 	return Product.findById(productId)

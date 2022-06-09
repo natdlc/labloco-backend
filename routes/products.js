@@ -102,6 +102,14 @@ routes.put("/archive/:productId", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// *EXTRA* Unarchive Product (Admin only)
+routes.put("/unarchive/:productId", verify, verifyAdmin, (req, res) => {
+	controller
+		.unarchiveProduct(req.params.productId)
+		.then((updatedProduct) => res.send(updatedProduct))
+		.catch((err) => res.send(err.message));
+});
+
 // *EXTRA* Delete an option (admin only)
 routes.delete("/option/:productId", verify, verifyAdmin, (req, res) => {
 	controller

@@ -59,6 +59,7 @@ Products
 - (complete) Add categories to product (admin only)
 - (complete) Add only active categories to product (admin only)
 - (complete) Remove from category (admin only)
+- (complete) Unarchive product (admin only)
 
 Category
 
