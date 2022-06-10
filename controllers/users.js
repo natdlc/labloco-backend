@@ -84,29 +84,6 @@ module.exports.addToCart = async (userId, productInfo, userIsAdmin) => {
 	}
 };
 
-// *EXTRA* Remove product from cart
-module.exports.removeFromCart = (userId, productId) => {
-	if (userId) {
-		return User.findByIdAndUpdate(
-			userId,
-			{
-				$pull: {
-					cart: {
-						productId,
-					},
-				},
-			},
-			{ safe: true, upsert: true }
-		)
-			.then((result) => {
-				return { message: "Product removed from cart" };
-			})
-			.catch((err) => err.message);
-	} else {
-		return { message: "user not found" };
-	}
-};
-
 // *EXTRA* Clear cart
 module.exports.clearCart = (userId) => {
 	return User.findByIdAndUpdate(userId, { cart: [] })
@@ -254,4 +231,43 @@ module.exports.changePassword = (userId, userInfo) => {
 			}
 		})
 		.catch((err) => err.message);
+};
+
+// *EXTRA* Delete product from cart
+module.exports.deleteProduct = (userId, productId, uniqueId) => {
+	if (userId) {
+		return User.findById(userId).then((user) => {
+			const productFound = user.cart.find(
+				(product) =>
+					product.productId === productId && product._id.toString() === uniqueId
+			);
+
+			if (productFound) {
+				const newUserCart = user.cart.map((product) => {
+					if (
+						product.productId === productId &&
+						product._id.toString() === uniqueId
+					) {
+						return null;
+					} else {
+						return product;
+					}
+				});
+
+				newUserCart.splice(newUserCart.indexOf(null), 1);
+
+				user.cart = newUserCart;
+				return user
+					.save()
+					.then(() => {
+						return { message: "product removed" };
+					})
+					.catch((err) => err.message);
+			} else {
+				return { message: "product not found" };
+			}
+		});
+	} else {
+		return { message: "user not found" };
+	}
 };

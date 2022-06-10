@@ -32,15 +32,6 @@ routes.post("/cart/add/", verify, (req, res) => {
 		.then((result) => res.send(result))
 		.catch((err) => res.send(err));
 });
-
-// *EXTRA* Remove from cart
-routes.delete("/cart/remove/:productId/", verify, (req, res) => {
-	controller
-		.removeFromCart(req.user.id, req.params.productId)
-		.then((result) => res.send(result))
-		.catch((err) => res.send(err.message));
-});
-
 // *EXTRA* Clear cart
 routes.delete("/cart/clear", verify, (req, res) => {
 	controller
@@ -118,6 +109,18 @@ routes.put(
 	(req, res) => {
 		controller
 			.decreaseQuantity(req.user.id, req.params.productId, req.params.uniqueId)
+			.then((result) => res.send(result))
+			.catch((err) => res.send(err.message));
+	}
+);
+
+// *EXTRA* Delete product from cart
+routes.delete(
+	"/cart/delete/product/:productId/:uniqueId",
+	verify,
+	(req, res) => {
+		controller
+			.deleteProduct(req.user.id, req.params.productId, req.params.uniqueId)
 			.then((result) => res.send(result))
 			.catch((err) => res.send(err.message));
 	}
