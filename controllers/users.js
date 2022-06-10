@@ -71,7 +71,9 @@ module.exports.addToCart = async (userId, productInfo, userIsAdmin) => {
 						user.cart.push(newProduct);
 						return user
 							.save()
-							.then((result) => result)
+							.then(() => {
+								return { message: "Product added to cart" };
+							})
 							.catch((err) => err.message);
 					});
 				} else {
