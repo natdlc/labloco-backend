@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema({
 				type: Number,
 				default: 1,
 			},
+			options: {
+				type: String,
+				default: "",
+			},
 			dateAdded: {
 				type: Date,
 				default: new Date(),

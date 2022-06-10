@@ -120,9 +120,11 @@ module.exports.checkout = async (req, res) => {
 					// if discount is percentage-based instead of fixed amount
 					if (discount.percentage) {
 						totalAmount =
-							totalAmount - totalAmount * (discount.percentage / 100);
+							courier.price +
+							totalAmount -
+							totalAmount * (discount.percentage / 100);
 					} else {
-						totalAmount = totalAmount - discount.amount;
+						totalAmount = totalAmount - discount.amount + courier.price;
 					}
 				} else {
 					return res.send({
