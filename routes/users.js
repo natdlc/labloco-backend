@@ -100,11 +100,27 @@ routes.put("/password/", verify, (req, res) => {
 });
 
 // *EXTRA* Increase product quantity
-routes.put("/cart/add/quantity/:productId/:uniqueId", verify, (req, res) => {
-	controller
-		.increaseQuantity(req.user.id, req.params.productId, req.params.uniqueId)
-		.then((result) => res.send(result))
-		.catch((err) => res.send(err.message));
-});
+routes.put(
+	"/cart/increase/quantity/:productId/:uniqueId",
+	verify,
+	(req, res) => {
+		controller
+			.increaseQuantity(req.user.id, req.params.productId, req.params.uniqueId)
+			.then((result) => res.send(result))
+			.catch((err) => res.send(err.message));
+	}
+);
+
+// *EXTRA* Decrease product quantity
+routes.put(
+	"/cart/decrease/quantity/:productId/:uniqueId",
+	verify,
+	(req, res) => {
+		controller
+			.decreaseQuantity(req.user.id, req.params.productId, req.params.uniqueId)
+			.then((result) => res.send(result))
+			.catch((err) => res.send(err.message));
+	}
+);
 
 module.exports = routes;

@@ -190,7 +190,7 @@ module.exports.increaseQuantity = (userId, productId, uniqueId) => {
 };
 
 // *EXTRA* Decrease product quantity
-module.exports.increaseQuantity = (userId, productId, uniqueId) => {
+module.exports.decreaseQuantity = (userId, productId, uniqueId) => {
 	if (userId) {
 		return User.findById(userId).then((user) => {
 			const newUserCart = user.cart.map((product) => {
@@ -198,8 +198,9 @@ module.exports.increaseQuantity = (userId, productId, uniqueId) => {
 					product.productId === productId &&
 					product._id.toString() === uniqueId
 				) {
-					product.quantity++;
-					return product;
+					product.quantity--;
+					if (product.quantity === 0) return null;
+					else return product;
 				} else {
 					return product;
 				}
@@ -209,7 +210,7 @@ module.exports.increaseQuantity = (userId, productId, uniqueId) => {
 			return user
 				.save()
 				.then(() => {
-					return { message: "quantity increased" };
+					return { message: "quantity decreased" };
 				})
 				.catch((err) => err.message);
 		});
