@@ -25,6 +25,8 @@ Cart
 - (complete) Remove product from cart (auth)
 - (complete) Clear cart (auth)
 - (complete) Admin can't add to cart
+- (complete) Increase product quantity
+- () Decrease product quantity
 
 Users
 

@@ -160,6 +160,64 @@ module.exports.setAdmin = (userId) => {
 		.catch((err) => err.message);
 };
 
+// *EXTRA* Increase product quantity
+module.exports.increaseQuantity = (userId, productId, uniqueId) => {
+	if (userId) {
+		return User.findById(userId).then((user) => {
+			const newUserCart = user.cart.map((product) => {
+				if (
+					product.productId === productId &&
+					product._id.toString() === uniqueId
+				) {
+					product.quantity++;
+					return product;
+				} else {
+					return product;
+				}
+			});
+
+			user.cart = newUserCart;
+			return user
+				.save()
+				.then(() => {
+					return { message: "quantity increased" };
+				})
+				.catch((err) => err.message);
+		});
+	} else {
+		return { message: "user not found" };
+	}
+};
+
+// *EXTRA* Decrease product quantity
+module.exports.increaseQuantity = (userId, productId, uniqueId) => {
+	if (userId) {
+		return User.findById(userId).then((user) => {
+			const newUserCart = user.cart.map((product) => {
+				if (
+					product.productId === productId &&
+					product._id.toString() === uniqueId
+				) {
+					product.quantity++;
+					return product;
+				} else {
+					return product;
+				}
+			});
+
+			user.cart = newUserCart;
+			return user
+				.save()
+				.then(() => {
+					return { message: "quantity increased" };
+				})
+				.catch((err) => err.message);
+		});
+	} else {
+		return { message: "user not found" };
+	}
+};
+
 // *EXTRA* Change pasword
 module.exports.changePassword = (userId, userInfo) => {
 	let currentPassword = userInfo.currentPassword;
