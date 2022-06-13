@@ -25,6 +25,10 @@ const orderSchema = new mongoose.Schema({
 		type: String,
 		required: [true, "A payment method is required"],
 	},
+	status: {
+		type: String,
+		default: "new",
+	},
 	courier: [
 		{
 			courierId: {
