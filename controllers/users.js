@@ -181,10 +181,14 @@ module.exports.decreaseQuantity = (userId, productId, uniqueId) => {
 						product.productId === productId &&
 						product._id.toString() === uniqueId
 					) {
-						product.quantity--;
+						console.log(product);
+						product.quantity = product.quantity - 1;
+						console.log(product.quantity);
 						if (product.quantity === 0) {
+							console.log("null");
 							return null;
 						} else {
+							console.log("not null");
 							return product;
 						}
 					} else {
@@ -192,7 +196,8 @@ module.exports.decreaseQuantity = (userId, productId, uniqueId) => {
 					}
 				});
 
-				newUserCart.splice(newUserCart.indexOf(null), 1);
+				if (newUserCart.includes(null))
+					newUserCart.splice(newUserCart.indexOf(null), 1);
 
 				user.cart = newUserCart;
 				return user
