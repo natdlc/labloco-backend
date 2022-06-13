@@ -22,6 +22,14 @@ routes.get("/", verify, verifyAdmin, (req, res) => {
 		.catch((err) => res.send(err.message));
 });
 
+// Retrieve active discounts (admin only)
+routes.get("/active", verify, (req, res) => {
+	controller
+		.getActiveDiscounts()
+		.then((result) => res.send(result))
+		.catch((err) => res.send(err.message));
+});
+
 // Set discounts to inactive (admin only)
 routes.put("/:discountId/deactivate", verify, verifyAdmin, (req, res) => {
 	controller
