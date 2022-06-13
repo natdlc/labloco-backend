@@ -17,6 +17,10 @@ const orderSchema = new mongoose.Schema({
 		type: String,
 		default: "",
 	},
+	shippingInfo: {
+		type: String,
+		required: [true, "Shipping information is needed"],
+	},
 	paymentMethod: {
 		type: String,
 		required: [true, "A payment method is required"],

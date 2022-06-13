@@ -69,7 +69,7 @@ const updateDatabase = async (
 
 	return newOrder
 		.save()
-		.then((result) => res.send(result))
+		.then((result) => res.send({ message: "order success" }))
 		.catch((err) => res.send(err.message));
 };
 
@@ -78,6 +78,7 @@ const createOrder = (req, totalAmount) => {
 		userId: req.user.id,
 		paymentMethod: req.body.paymentMethod,
 		comments: req.body.comments,
+		shippingInfo: req.body.shippingInfo,
 		totalAmount,
 	};
 
