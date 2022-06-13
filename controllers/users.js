@@ -181,14 +181,10 @@ module.exports.decreaseQuantity = (userId, productId, uniqueId) => {
 						product.productId === productId &&
 						product._id.toString() === uniqueId
 					) {
-						console.log(product);
 						product.quantity = product.quantity - 1;
-						console.log(product.quantity);
 						if (product.quantity === 0) {
-							console.log("null");
 							return null;
 						} else {
-							console.log("not null");
 							return product;
 						}
 					} else {
